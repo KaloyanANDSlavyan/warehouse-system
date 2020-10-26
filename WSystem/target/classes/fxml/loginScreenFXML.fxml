@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styling/loginMenuCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.LoginScreenController">
+   <children>
+      <AnchorPane fx:id="topPane" prefHeight="45.0" prefWidth="800.0" styleClass="topPane">
+         <children>
+            <Button fx:id="exitButton" layoutX="749.0" mnemonicParsing="false" onMouseClicked="#onExitClick" prefHeight="34.0" prefWidth="51.0" styleClass="exitButton" text="X" textFill="#2e9cca">
+               <font>
+                  <Font name="System Bold" size="25.0" />
+               </font>
+            </Button>
+            <Label fx:id="WSLabel" layoutX="14.0" layoutY="11.0" styleClass="WSLabel" text="WS" textFill="#2e9cca">
+               <font>
+                  <Font name="Agency FB Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="19.0" text="Warehouse System" textFill="#e1dfdf">
+               <font>
+                  <Font name="Consolas Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <VBox fx:id="navBox" layoutY="55.0" prefHeight="546.0" prefWidth="164.0" styleClass="navBox">
+         <children>
+            <Button fx:id="administratorButton" mnemonicParsing="false" onAction="#handleButton1Action" prefHeight="100.0" prefWidth="170.0" styleClass="administratorButton" text="Administrator" textFill="#e1dfdf">
+               <font>
+                  <Font name="Agency FB Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="ownerButton" mnemonicParsing="false" onAction="#handleButton2Action" prefHeight="100.0" prefWidth="170.0" styleClass="ownerButton" text="Owner" textFill="#e1dfdf">
+               <font>
+                  <Font name="Agency FB Bold" size="24.0" />
+               </font>
+            </Button>
+            <Button fx:id="agentButton" mnemonicParsing="false" onAction="#handleButton3Action" prefHeight="100.0" prefWidth="170.0" styleClass="agentButton" text="Agent" textFill="#e1dfdf">
+               <font>
+                  <Font name="Agency FB Bold" size="24.0" />
+               </font>
+            </Button>
+         </children></VBox>
+      <AnchorPane fx:id="loaderPane" layoutX="164.0" layoutY="55.0" prefHeight="546.0" prefWidth="636.0" styleClass="loaderPane">
+         <children>
+            <Label layoutX="174.0" layoutY="149.0" text="HELLO," textFill="#2e9cca">
+               <font>
+                  <Font name="Agency FB Bold" size="64.0" />
+               </font>
+            </Label>
+            <Label layoutX="346.0" layoutY="149.0" text="USER" textFill="#e1dfdf">
+               <font>
+                  <Font name="Agency FB Bold" size="64.0" />
+               </font>
+            </Label>
+            <Label layoutX="145.0" layoutY="264.0" text="PLEASE CHOOSE WHAT YOU WISH TO LOGIN IN AS" textFill="#e1dfdf">
+               <font>
+                  <Font name="Consolas" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

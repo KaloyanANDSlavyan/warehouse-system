@@ -1,0 +1,34 @@
+.anchorPane2{
+-fx-background-color: #202245;
+-fx-background-radius: 50px;
+-fx-border-radius: 50px;
+-fx-border-color: #14152b;
+-fx-border-width: 1px;
+}
+.loginButton{
+-fx-background-color: #2E9CCA;
+-fx-background-radius: 50px;
+-fx-text-fill: black;
+}
+.loginButton:hover{
+-fx-background-color: #29648A;
+-fx-cursor: hand;
+}
+.usernameField{
+-fx-background-color: #AAABB8;
+-fx-background-radius: 50px;
+-fx-prompt-text-fill: black;
+-fx-text-fill: black;
+}
+.passwordField{
+-fx-background-color: #AAABB8;
+-fx-background-radius: 50px;
+-fx-prompt-text-fill: black;
+-fx-text-fill: black;
+}
+.userTypeLabel{
+-fx-text-fill: #2E9CCA;
+}
+.userTypeLabel:hover{
+-fx-text-fill: #29648A;
+}
