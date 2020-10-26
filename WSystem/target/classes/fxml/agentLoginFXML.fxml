@@ -16,7 +16,7 @@
                   <Font name="Gulim" size="13.0" />
                </font>
             </TextField>
-            <Label fx:id="userTypeLabel" layoutX="160.0" layoutY="47.0" text="AGENT" textFill="#2e9cca">
+            <Label fx:id="userTypeLabel" layoutX="160.0" layoutY="47.0" styleClass="userTypeLabel" text="AGENT" textFill="#2e9cca">
                <font>
                   <Font name="Agency FB Bold" size="64.0" />
                </font>

@@ -23,42 +23,30 @@ public class LoginScreenController {
     private Button agentButton = null;
     @FXML
     private AnchorPane loaderPane = null;
-    // test
-
-   /* public void onLogInClick(MouseEvent mouseEvent) {
-        System.out.println("Clicked " + logInButton.getText());
-
-    }*/
-
-
 
     public void onExitClick(MouseEvent mouseEvent) {
         System.out.println("Clicked " + exitButton.getText());
         Platform.exit();
         System.exit(0);
     }
-
-    public void handleButton1Action(ActionEvent actionEvent) {
-        System.out.println("You clicked " + administratorButton.getText());
+    public void setLoader(String fxmlFile){
         FxmlLoader object = new FxmlLoader();
-        AnchorPane view = object.getView("administratorLoginFXML");
+        AnchorPane view = object.getView(fxmlFile);
         loaderPane.getChildren().clear();
         loaderPane.getChildren().add(view);
+    }
+    public void handleButton1Action(ActionEvent actionEvent) {
+        System.out.println("You clicked " + administratorButton.getText());
+        setLoader("administratorLoginFXML");
     }
 
     public void handleButton2Action(ActionEvent actionEvent) {
         System.out.println("You clicked " + ownerButton.getText());
-        FxmlLoader object = new FxmlLoader();
-        AnchorPane view = object.getView("ownerLoginFXML");
-        loaderPane.getChildren().clear();
-        loaderPane.getChildren().add(view);
+        setLoader("ownerLoginFXML");
     }
 
     public void handleButton3Action(ActionEvent actionEvent) {
         System.out.println("You clicked " + agentButton.getText());
-        FxmlLoader object = new FxmlLoader();
-        AnchorPane view = object.getView("agentLoginFXML");
-        loaderPane.getChildren().clear();
-        loaderPane.getChildren().add(view);
+        setLoader("agentLoginFXML");
     }
 }
