@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import system.backend.Admin;
+import system.backend.AuthorizationService;
 
 public class AdminLoginController {
     @FXML
@@ -18,14 +20,24 @@ public class AdminLoginController {
     private Label userTypeLabel = null;
 
     public void setOnAction(ActionEvent actionEvent) {
-        if(passwordField.getText().trim().equals("") && usernameField.getText().trim().equals(""))
-            System.out.println("Text fields are empty!");
-        else if(passwordField.getText().trim().equals("") || usernameField.getText().trim().equals(""))
-            System.out.println("Text field is empty!");
-        else {
-            String username = usernameField.getText().trim();
-            String password = passwordField.getText().trim();
-            System.out.println("Username: " + username + " Password: " + password);
+        String username = usernameField.getText().trim();
+        String password = passwordField.getText();
+        AuthorizationService service = AuthorizationService.getInstance();
+        boolean success = service.authorizeLogin(username, password, Admin.class);
+
+        if(success){
+            System.out.println("Successfully logged in");
+        } else {
+            System.out.println("Not success log in");
         }
+//        if(passwordField.getText().trim().equals("") && usernameField.getText().trim().equals(""))
+//            System.out.println("Text fields are empty!");
+//        else if(passwordField.getText().trim().equals("") || usernameField.getText().trim().equals(""))
+//            System.out.println("Text field is empty!");
+//        else {
+//            String username = usernameField.getText().trim();
+//            String password = passwordField.getText().trim();
+//            System.out.println("Username: " + username + " Password: " + password);
+//        }
     }
 }

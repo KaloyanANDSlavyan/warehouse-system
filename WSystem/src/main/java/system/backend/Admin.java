@@ -1,28 +1,32 @@
 package system.backend;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Entity
 public class Admin {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY/*, generator = "generator"*/)
-    //@SequenceGenerator(name = "generator", initialValue = 1, allocationSize = 1)
-    private int ID;
-    private String firstName;
-    private String lastName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long ID;
+    @Pattern(regexp = "^[A-Z][a-z]+$")
+    private String firstname;
+    @Pattern(regexp = "^[A-Z][a-z]+$")
+    private String lastname;
+    @Pattern(regexp = "^[aA-zZ0-9_-]{5,30}$")
     private String username;
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[_@*#$%^&+=])(?=\\S+$).{8,}$")
     private String password;
 
     public Admin(){
 
     }
-    public Admin(String firstName, String lastName, String username, String password){
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Admin(String firstname, String lastname, String username, String password){
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
     }
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
@@ -30,20 +34,20 @@ public class Admin {
         this.ID = ID;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getUsername() {

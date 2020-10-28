@@ -7,8 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import system.application.controllers.LoadingScreenController;
 import system.application.controllers.LoginScreenController;
+import system.backend.Configuration;
 import system.backend.WSystem;
 
 import java.io.IOException;
@@ -55,10 +58,13 @@ public class App extends Application
                 }
             });
         }).start();
-
     }
 
     public static void main(String[] args) {
+        // Configuring the application
+        Configuration config = Configuration.getInstance();
+        config.configure();
+        // Launching the application
         launch(args);
     }
 }

@@ -27,7 +27,7 @@ public class AdminDAO implements DAO {
         manager.getTransaction().commit();
     }
 
-    public Admin findByDetails(String username, String password) throws NoResultException {
+    public Admin findByDetails(String username, String password) {
         String text = "SELECT * FROM Admin WHERE username= :username && password = :password";
         Query query = manager.createNativeQuery(text, Admin.class);
         query.setParameter("username", username);
