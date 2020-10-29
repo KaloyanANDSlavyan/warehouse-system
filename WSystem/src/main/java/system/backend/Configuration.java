@@ -19,7 +19,7 @@ public class Configuration {
     private EntityManager manager;
     private Logger LOGGER;
 
-    private void createLogger(){
+    Configuration(){
         LOGGER = LogManager.getLogger();
     }
 
@@ -28,7 +28,9 @@ public class Configuration {
     }
 
     private void createFactory() {
-        factory = Persistence.createEntityManagerFactory("my-persistence-unit");
+        String unit = "my-persistence-unit";
+        factory = Persistence.createEntityManagerFactory(unit);
+        LOGGER.info("Successfully connected to " + unit);
     }
 
     public EntityManager getManager() {
@@ -53,19 +55,24 @@ public class Configuration {
         sessionFactory.close();
         StandardServiceRegistryBuilder.destroy(registry);
     }
-
-    // Creating DB in separate thread
+    // Starting a new thread
     public void configure(){
         new Thread(() -> {
                 try {
                     Thread.sleep(5000);
-                    createLogger();
+                    // Creating the database
                     createDB();
+                    LOGGER.info("Successfully finished creating the database!");
+                    // Creating factory and manager
                     createFactory();
                     createManager();
+                    LOGGER.info("Successfully finished creating factory and manager!");
+                    // Creating the system
                     WSystem wSystem = WSystem.getInstance();
-                    LOGGER.info("Successfully finished the configuration of the application");
+                    LOGGER.info("Successfully finished creating the system!");
+                    LOGGER.info("Successfully finished the configuration of the application!");
                 } catch (Exception e) {
+                    LOGGER.error("An error occurred during the configuration: " + e.getMessage());
                     e.printStackTrace();
                 }
             }).start();

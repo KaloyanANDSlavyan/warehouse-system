@@ -6,10 +6,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import system.backend.Admin;
 import system.backend.AuthorizationService;
 
 public class AdminLoginController {
+    private Logger LOGGER = LogManager.getLogger();
     @FXML
     private TextField usernameField = null;
     @FXML
@@ -24,12 +27,15 @@ public class AdminLoginController {
         String password = passwordField.getText();
         AuthorizationService service = AuthorizationService.getInstance();
         boolean success = service.authorizeLogin(username, password, Admin.class);
+        LOGGER.info("Successfully finished the authorization of the admin");
 
         if(success){
-            System.out.println("Successfully logged in");
-        } else {
-            System.out.println("Not success log in");
+            System.out.println("Successfully logged in.");
+        } else{
+            System.out.println("Username or password is incorrect.");
         }
+
+
 //        if(passwordField.getText().trim().equals("") && usernameField.getText().trim().equals(""))
 //            System.out.println("Text fields are empty!");
 //        else if(passwordField.getText().trim().equals("") || usernameField.getText().trim().equals(""))

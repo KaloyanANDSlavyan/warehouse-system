@@ -32,14 +32,18 @@ public class WSystem {
     public void createAdmin(String firstName, String lastName,
                              String username, String password){
         Admin admin = new Admin(firstName, lastName, username, password);
+        // Deleting the admin if exists
         AdminDAO.getInstance().deleteIfExists();
         try {
+            // Validating admin
             Set<ConstraintViolation<Admin>> constraints
                     = ValidationService.getInstance().validateAdmin(admin);
             if (constraints.isEmpty())
+                // Saving
                 AdminDAO.getInstance().save(admin);
             else throw new ConstraintViolationException(constraints);
         }catch(ConstraintViolationException e){
+            // catching errors
             for(ConstraintViolation con: e.getConstraintViolations()) {
                 LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
             }

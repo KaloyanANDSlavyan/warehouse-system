@@ -5,7 +5,7 @@
     </Properties>
 
     <Appenders>
-        <RollingFile name="allLogger" fileName="${basePath}/all.log" filePattern="${basePath}/all-%d{yyyy-MM-dd}.log">
+        <RollingFile name="allLogger" fileName="${basePath}/all.log" filePattern="${basePath}/all-%d{yyyy-MM-dd}.log" append = "false">
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
             </PatternLayout>
@@ -14,7 +14,7 @@
             </Policies>
         </RollingFile>
 
-        <RollingFile name="infoLogger" fileName="${basePath}/info.log" filePattern="${basePath}/info-%d{yyyy-MM-dd}.log">
+        <RollingFile name="infoLogger" fileName="${basePath}/info.log" filePattern="${basePath}/info-%d{yyyy-MM-dd}.log" append = "false">
             <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
@@ -24,7 +24,7 @@
             </Policies>
         </RollingFile>
 
-        <RollingFile name="warnLogger" fileName="${basePath}/warn.log" filePattern="${basePath}/warn-%d{yyyy-MM-dd}.log">
+        <RollingFile name="warnLogger" fileName="${basePath}/warn.log" filePattern="${basePath}/warn-%d{yyyy-MM-dd}.log" append = "false">
             <LevelRangeFilter minLevel="WARN" maxLevel="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
@@ -34,7 +34,7 @@
             </Policies>
         </RollingFile>
 
-        <RollingFile name="debugLogger" fileName="${basePath}/debug.log" filePattern="${basePath}/debug-%d{yyyy-MM-dd}.log">
+        <RollingFile name="debugLogger" fileName="${basePath}/debug.log" filePattern="${basePath}/debug-%d{yyyy-MM-dd}.log" append = "false">
             <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n</pattern>
@@ -44,7 +44,7 @@
             </Policies>
         </RollingFile>
 
-        <RollingFile name="errorLogger" fileName="${basePath}/error.log" filePattern="${basePath}/error-%d{yyyy-MM-dd}.log">
+        <RollingFile name="errorLogger" fileName="${basePath}/error.log" filePattern="${basePath}/error-%d{yyyy-MM-dd}.log" append = "false">
             <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
             <PatternLayout>
                 <pattern>[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1}, %M - %msg%n</pattern>
