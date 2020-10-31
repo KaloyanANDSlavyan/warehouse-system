@@ -20,11 +20,22 @@
 -fx-prompt-text-fill: black;
 -fx-text-fill: black;
 }
+.usernameField:fieldsCheck{
+-fx-border-color: red;
+-fx-border-radius: 50px;
+-fx-border-width: 1px;
+}
+
 .passwordField{
 -fx-background-color: #AAABB8;
 -fx-background-radius: 50px;
 -fx-prompt-text-fill: black;
 -fx-text-fill: black;
+}
+.passwordField:fieldsCheck{
+-fx-border-color: red;
+-fx-border-radius: 50px;
+-fx-border-width: 1px;
 }
 .userTypeLabel{
 -fx-text-fill: #2E9CCA;

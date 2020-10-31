@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="545.0" prefWidth="636.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.ProfilesController">
+   <children>
+      <Label layoutX="246.0" layoutY="202.0" text="Profiles" textFill="#2e9cca">
+         <font>
+            <Font name="Agency FB" size="59.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

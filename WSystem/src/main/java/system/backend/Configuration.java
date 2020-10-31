@@ -59,7 +59,6 @@ public class Configuration {
     public void configure(){
         new Thread(() -> {
                 try {
-                    Thread.sleep(5000);
                     // Creating the database
                     createDB();
                     LOGGER.info("Successfully finished creating the database!");

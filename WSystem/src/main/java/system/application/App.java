@@ -35,13 +35,12 @@ public class App extends Application
         loadingStage.setScene(loadingScreenScene);
         loadingStage.initStyle(StageStyle.UNDECORATED);
         loginStage.initStyle(StageStyle.UNDECORATED);
-
         loadingStage.show();
 
         new Thread(() -> {
             for (int i = 0; i <= 10; i++) {
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(750);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
