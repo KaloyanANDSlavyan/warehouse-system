@@ -1,4 +1,7 @@
-package system.backend;
+package system.backend.services;
+
+import system.backend.profiles.AbstractProfile;
+import system.backend.profiles.Profile;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -25,8 +28,8 @@ public class ValidationService {
         validator = factory.getValidator();
     }
 
-    public Set<ConstraintViolation<Admin>> validateAdmin(Admin admin){
-        Set<ConstraintViolation<Admin>> constraints = validator.validate(admin);
+    public Set<ConstraintViolation<Object>> validate(Object profile){
+        Set<ConstraintViolation<Object>> constraints = validator.validate(profile);
         return constraints;
     }
 

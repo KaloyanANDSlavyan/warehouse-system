@@ -1,6 +1,46 @@
-[INFO ] 2020-10-31 19:37:49.386 [Thread-2] Configuration - Successfully finished creating the database!
-[INFO ] 2020-10-31 19:37:51.057 [Thread-2] Configuration - Successfully connected to my-persistence-unit
-[INFO ] 2020-10-31 19:37:51.164 [Thread-2] Configuration - Successfully finished creating factory and manager!
-[INFO ] 2020-10-31 19:37:51.839 [Thread-2] Configuration - Successfully finished creating the system!
-[INFO ] 2020-10-31 19:37:51.842 [Thread-2] Configuration - Successfully finished the configuration of the application!
-[INFO ] 2020-10-31 19:38:11.584 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-11-06 02:31:31.729 [Thread-2] Configuration - Successfully finished creating the database!
+[INFO ] 2020-11-06 02:31:36.017 [Thread-2] Configuration - Successfully connected to my-persistence-unit
+[INFO ] 2020-11-06 02:31:36.088 [Thread-2] Configuration - Successfully finished creating factory and manager!
+[INFO ] 2020-11-06 02:31:36.321 [Thread-2] Configuration - Successfully finished creating the system!
+[INFO ] 2020-11-06 02:31:36.322 [Thread-2] Configuration - Successfully finished the configuration of the application!
+[INFO ] 2020-11-06 02:31:44.088 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[ERROR] 2020-11-06 02:31:51.987 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.990 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:31:51.990 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin - The lastname is not valid!
+[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin - The phoneNumber is not valid!
+[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin - The lastname is not valid!
+[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin - The username is not valid!
+[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:31:51.995 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:31:51.995 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.284 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.285 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.285 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin - The phoneNumber is not valid!
+[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin - The firstname is not valid!
+[ERROR] 2020-11-06 02:32:00.287 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin - The lastname is not valid!
+[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin - The username is not valid!
+[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.290 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.290 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.291 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.291 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin - The password is not valid!
+[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin - Agent couldn't be validated
+[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin - The password is not valid!

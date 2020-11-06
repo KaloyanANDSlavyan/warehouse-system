@@ -2,8 +2,6 @@ package system;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import system.backend.AuthorizationService;
-import system.backend.Configuration;
 
 import static org.junit.Assert.*;
 

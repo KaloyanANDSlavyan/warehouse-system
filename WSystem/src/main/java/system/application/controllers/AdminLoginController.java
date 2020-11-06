@@ -14,8 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import system.backend.Admin;
-import system.backend.AuthorizationService;
+import system.backend.profiles.Admin;
+import system.backend.services.AuthorizationService;
 
 import java.io.IOException;
 
@@ -75,8 +75,6 @@ public class AdminLoginController {
             setPseudoClassState(false);
             closeStage(actionEvent);
             loadStage("/fxml/adminPanelFXML.fxml");
-
-
         } else{
             System.out.println("Username or password is incorrect.");
             setPseudoClassState(true);

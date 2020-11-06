@@ -20,7 +20,14 @@ public class Configuration {
     private Logger LOGGER;
 
     Configuration(){
-        LOGGER = LogManager.getLogger();
+        setLOGGER(LogManager.getLogger());
+    }
+
+    public static Configuration getInstance(){
+        if(config == null) {
+            config = new Configuration();
+        }
+        return config;
     }
 
     public EntityManagerFactory getFactory() {
@@ -77,18 +84,15 @@ public class Configuration {
             }).start();
     }
 
-    public static Configuration getInstance(){
-        if(config == null) {
-            config = new Configuration();
-        }
-        return config;
-    }
-
     public void closeFactory(){
         factory.close();
     }
 
     public void closeManager(){
         manager.close();
+    }
+
+    public void setLOGGER(Logger LOGGER) {
+        this.LOGGER = LOGGER;
     }
 }

@@ -1,12 +1,17 @@
-package system.backend;
+package system.backend.services;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import system.backend.WSystem;
+import system.backend.dao.AdminDAO;
+import system.backend.profiles.Admin;
+import system.backend.profiles.Agent;
+import system.backend.profiles.Profile;
 
 //This class will be used where authorization is needed
 public class AuthorizationService {
     private static AuthorizationService service;
-    private Logger LOGGER;
+    private final Logger LOGGER;
 
     AuthorizationService(){
         LOGGER = LogManager.getLogger();
@@ -18,7 +23,7 @@ public class AuthorizationService {
         return service;
     }
 
-    public boolean authorizeLogin(String username, String password, Class c){
+    public boolean authorizeLogin(String username, String password, Class<?> c){
         try {
             if (c == Admin.class)
                 return authorizeAdmin(username, password);
@@ -33,10 +38,9 @@ public class AuthorizationService {
     }
 
     public boolean authorizeAdmin(String username, String password){
-            Admin admin = AdminDAO.getInstance().findByCredentials(username, password);
-            if(!admin.getUsername().equals(username) || !admin.getPassword().equals(password))
-                return false;
-            return true;
+        WSystem wSystem = WSystem.getInstance();
+        Admin admin = wSystem.getAdminDAO().findBy2Values(Admin.class, "username", "password", username, password);
+        return admin.getUsername().equals(username) && admin.getPassword().equals(password);
     }
 
     public boolean authorizeAgent(String username, String password){

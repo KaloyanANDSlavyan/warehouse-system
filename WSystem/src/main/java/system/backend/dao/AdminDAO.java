@@ -1,33 +1,16 @@
-package system.backend;
+package system.backend.dao;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
+import system.backend.profiles.Admin;
+
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
-import java.util.List;
 
 //DAO Layer for admin
-public class AdminDAO implements DAO {
-    private static AdminDAO adminDAO;
-    private EntityManager manager;
-
-    public static AdminDAO getInstance(){
-        if(adminDAO == null) {
-            adminDAO = new AdminDAO();
-        }
-        return adminDAO;
-    }
+public class AdminDAO extends ProfileDAO<Admin> {
 
     public AdminDAO(){
-        Configuration config = Configuration.getInstance();
-        manager = config.getManager();
-    }
-
-    public void save(Admin admin){
-        manager.getTransaction().begin();
-        manager.persist(admin);
-        manager.getTransaction().commit();
+        super();
     }
 
     public Admin findByCredentials(String username, String password) {
