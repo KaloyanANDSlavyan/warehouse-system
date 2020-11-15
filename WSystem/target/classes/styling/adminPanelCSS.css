@@ -56,4 +56,57 @@
 .loaderPane{
 -fx-background-color: #25274D;
 }
-
+.refreshButton{
+-fx-background-color: none;
+-fx-background-image: url("images/rfButton.png");
+-fx-background-size: 35px;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: 90%;
+ -fx-cursor: hand;
+}
+.refreshButton:hover{
+-fx-background-image: url("images/rfButtonHover.png");
+}
+.transparent{
+-fx-background: #25274D;
+-fx-background-color: #25274D;
+}
+.shadow{
+-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+}
+.noshadow{
+-fx-effect: none;
+}
+.editButton{
+-fx-background-color: none;
+-fx-background-image: url("images/editButton.png");
+-fx-background-size: 35px;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: 90%;
+ -fx-cursor: hand;
+}
+.editButton:hover{
+-fx-background-image: url("images/editButtonHover.png");
+}
+.deleteButton{
+-fx-background-color: none;
+-fx-background-image: url("images/deleteButton.png");
+-fx-background-size: 35px;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: 90%;
+ -fx-cursor: hand;
+}
+.deleteButton:hover{
+-fx-background-image: url("images/deleteButtonHover.png");
+}
+.backButton{
+-fx-background-color: none;
+-fx-background-image: url("images/backButton.png");
+-fx-background-size: 60px;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: 90%;
+ -fx-cursor: hand;
+}
+.backButton:hover{
+-fx-background-image: url("images/backButtonHover.png");
+}

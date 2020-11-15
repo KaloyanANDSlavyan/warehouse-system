@@ -37,3 +37,7 @@
 .userTypeLabel:hover{
 -fx-text-fill: #29648A;
 }
+.why1, .why2{
+cursor: hand;
+-fx-text-fill: red;
+}

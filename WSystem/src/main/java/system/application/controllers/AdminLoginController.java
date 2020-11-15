@@ -29,6 +29,8 @@ public class AdminLoginController {
     private Button loginButton = null;
     @FXML
     private Label userTypeLabel = null;
+    @FXML
+    private Label loginFalseLabel = null;
     private static final PseudoClass fieldsCheck_pseudoClass = PseudoClass.getPseudoClass("fieldsCheck");
 
     public void setPseudoClassState(boolean state){
@@ -77,6 +79,7 @@ public class AdminLoginController {
             loadStage("/fxml/adminPanelFXML.fxml");
         } else{
             System.out.println("Username or password is incorrect.");
+            loginFalseLabel.setVisible(true);
             setPseudoClassState(true);
         }
     }

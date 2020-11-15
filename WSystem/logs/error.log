@@ -1,40 +1,20 @@
-[ERROR] 2020-11-06 02:31:51.987 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.990 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:31:51.990 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin, createOwner - The lastname is not valid!
-[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.991 [JavaFX Application Thread] Admin, createOwner - The phoneNumber is not valid!
-[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin, createOwner - The lastname is not valid!
-[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.992 [JavaFX Application Thread] Admin, createOwner - The username is not valid!
-[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:31:51.993 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.994 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:31:51.995 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:31:51.995 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.284 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.285 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.285 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin, createOwner - The phoneNumber is not valid!
-[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.286 [JavaFX Application Thread] Admin, createOwner - The firstname is not valid!
-[ERROR] 2020-11-06 02:32:00.287 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin, createOwner - The lastname is not valid!
-[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.288 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin, createOwner - The username is not valid!
-[ERROR] 2020-11-06 02:32:00.289 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.290 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.290 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.291 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.291 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
-[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
-[ERROR] 2020-11-06 02:32:00.292 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.924 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.925 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.925 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.926 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.926 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.927 [JavaFX Application Thread] Admin, createOwner - The firstname is not valid!
+[ERROR] 2020-11-15 13:57:49.927 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.928 [JavaFX Application Thread] Admin, createOwner - The lastname is not valid!
+[ERROR] 2020-11-15 13:57:49.928 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.928 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.929 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.929 [JavaFX Application Thread] Admin, createOwner - The username is not valid!
+[ERROR] 2020-11-15 13:57:49.930 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.930 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.930 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.931 [JavaFX Application Thread] Admin, createOwner - The phoneNumber is not valid!
+[ERROR] 2020-11-15 13:57:49.931 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.932 [JavaFX Application Thread] Admin, createOwner - The password is not valid!
+[ERROR] 2020-11-15 13:57:49.932 [JavaFX Application Thread] Admin, createOwner - Agent couldn't be validated
+[ERROR] 2020-11-15 13:57:49.932 [JavaFX Application Thread] Admin, createOwner - The password is not valid!

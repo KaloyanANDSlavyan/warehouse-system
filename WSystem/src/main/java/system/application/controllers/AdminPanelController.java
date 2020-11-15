@@ -1,18 +1,20 @@
 package system.application.controllers;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import system.backend.WSystem;
 import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
-import system.backend.profiles.Profile;
-
-import java.util.List;
 
 public class AdminPanelController {
+    @FXML
+    private AnchorPane anchorPane = null;
     @FXML
     private Button exitButton = null;
     @FXML
@@ -20,25 +22,50 @@ public class AdminPanelController {
     @FXML
     private Button createAgentButton = null;
     @FXML
-    private Button profilesButton = null;
+    private Button profilesButton = new Button();
     @FXML
     private AnchorPane loaderPane = null;
+    @FXML
+    private Button refreshButton = null;
+    private BooleanProperty profilesCheck = new SimpleBooleanProperty(false);
+
+
+    public void initialize() {
+        System.out.println("AdminPanel initialized.");
+        profilesState();
+        profilesButton.visibleProperty().bind(profilesCheck);
+    }
+
+    public void profilesState(){
+        WSystem wSystem = WSystem.getInstance();
+        if (wSystem.hasProfiles())
+            profilesCheck.set(true);
+
+        System.out.println("profilesCheck is: " + profilesCheck);
+    }
+
+    public Button getProfilesButton() {
+        return profilesButton;
+    }
+
+    public boolean isProfilesCheck() {
+        return profilesCheck.get();
+    }
+
+    public BooleanProperty profilesCheckProperty() {
+        return profilesCheck;
+    }
+
+    public AnchorPane getAnchorPane() {
+        return anchorPane;
+    }
 
     public void setLoader(String fxmlFile) {
         FxmlLoader object = new FxmlLoader();
         AnchorPane view = object.getView(fxmlFile);
         loaderPane.getChildren().clear();
-
-        WSystem wSystem = WSystem.getInstance();
-
-        if (wSystem.hasProfiles()) {
-            // add the button
-            // after click -> Profile button action
-            System.out.println("Yes the system has profiles!");
-            System.out.println("Button added.");
-        }
-
         loaderPane.getChildren().add(view);
+        initialize();
     }
 
     public void onExitAction(ActionEvent actionEvent) {
@@ -60,37 +87,11 @@ public class AdminPanelController {
     public void handleButton3Action(ActionEvent actionEvent) {
         System.out.println("You clicked " + profilesButton.getText());
         setLoader("profilesFXML");
+    }
 
-        //Change panel
-        System.out.println("Button clicked");
-        WSystem wSystem = WSystem.getInstance();
 
-        if (wSystem.hasAgentProfiles()) {
-            //add AgentProfiles button
-            System.out.println("Showing agents here:");
-            for (Agent agent : wSystem.getAgents()) {
-                System.out.println("\nAgent:");
-                System.out.println(agent.getID());
-                System.out.println(agent.getFirstname());
-                System.out.println(agent.getLastname());
-                System.out.println(agent.getPassword());
-                System.out.println(agent.getEmailAddress());
-                System.out.println(agent.getPhoneNumber());
-            }
-        }
-        if (wSystem.hasOwnerProfiles()) {
-            //add OwnerProfiles button
-            System.out.println("\n\nShowing owners here:");
-            for (Owner owner : wSystem.getOwners()) {
-                System.out.println("\nOwner:");
-                System.out.println(owner.getID());
-                System.out.println(owner.getFirstname());
-                System.out.println(owner.getLastname());
-                System.out.println(owner.getPassword());
-                System.out.println(owner.getEmailAddress());
-                System.out.println(owner.getPhoneNumber());
-            }
-        }
+    public void handleRefreshButton(ActionEvent event) {
+        initialize();
     }
 }
 
