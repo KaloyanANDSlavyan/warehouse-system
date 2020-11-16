@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import system.backend.dao.*;
 import system.backend.profiles.*;
+import system.backend.services.CryptoService;
 import system.backend.services.ValidationService;
 
 import javax.validation.ConstraintViolation;
@@ -66,6 +67,9 @@ public class WSystem {
 
     public void createAdmin(String firstName, String lastName,
                             String username, String pass){
+//        CryptoService cryptoService = CryptoService.getInstance();
+//        pass = cryptoService.encrypt(pass, cryptoService.getKey(), cryptoService.getCipher());
+
         Profile admin = new Admin(firstName, lastName, username, pass);
         Set<ConstraintViolation<Object>> constraints = createProfile(admin);
 

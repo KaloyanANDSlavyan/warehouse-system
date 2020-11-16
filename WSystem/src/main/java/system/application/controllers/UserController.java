@@ -3,8 +3,13 @@ package system.application.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import system.backend.WSystem;
+import system.backend.dao.AgentDAO;
+import system.backend.dao.OwnerDAO;
+import system.backend.dao.ProfileDAO;
 import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
+import system.backend.profiles.Profile;
 
 public class UserController {
     @FXML
@@ -38,6 +43,16 @@ public class UserController {
     public void handleDeleteButton(ActionEvent event) {
         System.out.println("Delete button clicked");
 
+        WSystem wSystem = WSystem.getInstance();
+        AgentDAO agentDAO = wSystem.getAgentDAO();
+        OwnerDAO ownerDAO = wSystem.getOwnerDAO();
+
+        if(this.owner == null) {
+            agentDAO.deleteByID(Agent.class, this.agent.getID());
+        }
+        else {
+            ownerDAO.deleteByID(Owner.class, this.owner.getID());
+        }
     }
 
     public void handleEditButton(ActionEvent event) {

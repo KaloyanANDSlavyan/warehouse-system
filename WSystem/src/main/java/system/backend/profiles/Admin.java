@@ -38,6 +38,8 @@ public class Admin extends AbstractProfile {
         for (ConstraintViolation<Object> con : constraints) {
             LOGGER.error("Agent couldn't be validated");
             LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+            System.out.println(con.getPropertyPath());
+            System.out.println(con.getMessage());
         }
         return constraints;
     }

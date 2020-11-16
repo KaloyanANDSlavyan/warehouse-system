@@ -9,6 +9,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import system.backend.services.CryptoService;
+
+import java.util.Base64;
 
 public class LoginScreenController {
     @FXML

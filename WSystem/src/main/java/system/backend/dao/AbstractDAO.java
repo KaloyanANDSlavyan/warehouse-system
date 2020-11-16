@@ -20,8 +20,21 @@ abstract public class AbstractDAO<T> implements DAO<T> {
     }
 
     public void save(T object){
+        try {
+            manager.getTransaction().begin();
+            manager.persist(object);
+            manager.getTransaction().commit();
+        } catch(Exception e){
+            e.printStackTrace();
+            System.out.println("LQLQLQLQLQLQLQLQLQLQLQ");
+        }
+    }
+
+    public void deleteByID(Class<T> c, Long id){
+        T object = manager.find(c, id);
+
         manager.getTransaction().begin();
-        manager.persist(object);
+        manager.remove(object);
         manager.getTransaction().commit();
     }
 
