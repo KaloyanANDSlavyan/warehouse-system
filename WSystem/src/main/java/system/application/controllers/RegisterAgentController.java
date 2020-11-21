@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class RegisterAgentController implements Initializable {
+public class RegisterAgentController extends AdminPanelController implements Initializable {
     @FXML
     private TextField usernameField = null;
     @FXML
@@ -53,7 +53,6 @@ public class RegisterAgentController implements Initializable {
     @FXML
     private Hyperlink why2 = null;
     private WSystem wSystem = WSystem.getInstance();
-    private AdminPanelController adminPanelObject;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -73,12 +72,29 @@ public class RegisterAgentController implements Initializable {
 
     }
 
+    public void fillConsBox1(String message) {
+        Label consLabel = new Label();
+        consLabel.setText(message);
+        consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
+        consVbox1.getChildren().add(consLabel);
+        System.out.println(message);
+        why1.setVisible(true);
+    }
+
+    public void fillConsBox2(String message){
+        Label consLabel = new Label();
+        consLabel.setText(message);
+        consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
+        consVbox2.getChildren().add(consLabel);
+        System.out.println(message);
+        why2.setVisible(true);
+    }
+
     public void registerButtonAction(ActionEvent actionEvent) {
         consVbox1.getChildren().clear();
         consVbox2.getChildren().clear();
         why1.setVisible(false);
         why2.setVisible(false);
-        violationsLabel.setVisible(false);
 
         System.out.println("Register Button Clicked.");
         String firstName = firstNameField.getText().trim();
@@ -93,35 +109,21 @@ public class RegisterAgentController implements Initializable {
             System.out.println("Please fill all of the required data!");
         }
 
-
         if(!password.equals(confirmPassword)){
+            String message = "Passwords don't match!";
             System.out.println("Passwords don't match!");
-            Label matchCon = new Label();
-            matchCon.setText("Passwords don't match!");
-            matchCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-            consVbox2.getChildren().add(matchCon);
-            why2.setVisible(true);
+            fillConsBox2(message);
         }
 
-
-
-        WSystem wSystem = WSystem.getInstance();
         Admin admin = (Admin)wSystem.getAdmin();
 
         Set<ConstraintViolation<Object>> cons =
                 admin.createAgent(firstName, lastName, username, password, email, phoneNumber);
 
         if (cons.isEmpty()) {
-
+            violationsLabel.setVisible(false);
             successLabel.setVisible(true);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/adminPanelFXML.fxml"));
-            try {
-                Parent root = loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            adminPanelObject = (AdminPanelController) loader.getController();
-            adminPanelObject.initialize();
+            profilesState();  // checks if there are profiles. true => sets button visible. false => sets button invisible
         }else
             violationsLabel.setVisible(true);
 
@@ -151,73 +153,42 @@ public class RegisterAgentController implements Initializable {
         System.out.println("First Name Violations:");
         for(String message : firstname_con) {
             if (!message.isEmpty()) {
-                Label firstNameCon = new Label();
-                firstNameCon.setText(message);
-                firstNameCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox1.getChildren().add(firstNameCon);
-                System.out.println(message);
-                why1.setVisible(true);
+              fillConsBox1(message);
             }
         }
         System.out.println("\n");
         System.out.println("Last Name Violations:");
         for(String message : lastname_con) {
             if (!message.isEmpty()) {
-                Label lastNameCon = new Label();
-                lastNameCon.setText(message);
-                lastNameCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox1.getChildren().add(lastNameCon);
-                System.out.println(message);
-                why1.setVisible(true);
+               fillConsBox1(message);
             }
         }
         System.out.println("\n");
         System.out.println("Username Violations:");
         for(String message : username_con) {
             if (!message.isEmpty()) {
-                Label usernameCon = new Label();
-                usernameCon.setText(message);
-                usernameCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox1.getChildren().add(usernameCon);
-                System.out.println(message);
-                why1.setVisible(true);
+               fillConsBox1(message);
             }
         }
         System.out.println("\n");
         System.out.println("Password Violations:");
         for(String message : pass_con) {
             if (!message.isEmpty()) {
-                Label passwordCon = new Label();
-                passwordCon.setText(message);
-                passwordCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox2.getChildren().add(passwordCon);
-                System.out.println(message);
-                why2.setVisible(true);
+               fillConsBox2(message);
             }
         }
         System.out.println("\n");
         System.out.println("Email Violations:");
         for(String message : email_con) {
             if (!message.isEmpty()) {
-                Label emailCon = new Label();
-                emailCon.setText(message);
-                emailCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox2.getChildren().add(emailCon);
-                System.out.println(message);
-                why2.setVisible(true);
+              fillConsBox2(message);
             }
         }
         System.out.println("\n");
         System.out.println("Phone Violations:");
         for(String message : phone_con) {
             if (!message.isEmpty()) {
-                System.out.println(message);
-                Label phoneCon = new Label();
-                phoneCon.setText(message);
-                phoneCon.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
-                consVbox2.getChildren().add(phoneCon);
-                System.out.println(message);
-                why2.setVisible(true);
+               fillConsBox2(message);
             }
         }
         System.out.println("\n");

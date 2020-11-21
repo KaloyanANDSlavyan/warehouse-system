@@ -1,17 +1,6 @@
-[INFO ] 2020-11-16 05:49:10.109 [Thread-2] Configuration - Successfully finished creating the database!
-[INFO ] 2020-11-16 05:49:11.491 [Thread-2] Configuration - Successfully connected to my-persistence-unit
-[INFO ] 2020-11-16 05:49:11.558 [Thread-2] Configuration - Successfully finished creating factory and manager!
-[INFO ] 2020-11-16 05:49:12.997 [Thread-2] Configuration - Successfully finished creating the system!
-[INFO ] 2020-11-16 05:49:12.998 [Thread-2] Configuration - Successfully finished the configuration of the application!
-[INFO ] 2020-11-16 05:49:28.091 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:30.006 [JavaFX Application Thread] AuthorizationService - An exception occurred but handled: No entity found for query
-[INFO ] 2020-11-16 05:49:30.006 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:33.062 [JavaFX Application Thread] AuthorizationService - An exception occurred but handled: No entity found for query
-[INFO ] 2020-11-16 05:49:33.062 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:35.270 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:51.897 [JavaFX Application Thread] AgentLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:53.572 [JavaFX Application Thread] AuthorizationService - An exception occurred but handled: No entity found for query
-[INFO ] 2020-11-16 05:49:53.573 [JavaFX Application Thread] AgentLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:57.029 [JavaFX Application Thread] AuthorizationService - An exception occurred but handled: No entity found for query
-[INFO ] 2020-11-16 05:49:57.029 [JavaFX Application Thread] AgentLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-16 05:49:58.886 [JavaFX Application Thread] AgentLoginController - Successfully finished the authorization of the agent
+[INFO ] 2020-11-21 14:26:19.866 [Thread-2] Configuration - Successfully finished creating the database!
+[INFO ] 2020-11-21 14:26:21.994 [Thread-2] Configuration - Successfully connected to my-persistence-unit
+[INFO ] 2020-11-21 14:26:22.104 [Thread-2] Configuration - Successfully finished creating factory and manager!
+[INFO ] 2020-11-21 14:26:23.469 [Thread-2] Configuration - Successfully finished creating the system!
+[INFO ] 2020-11-21 14:26:23.470 [Thread-2] Configuration - Successfully finished the configuration of the application!
+[INFO ] 2020-11-21 14:27:08.576 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin

@@ -56,17 +56,6 @@
 .loaderPane{
 -fx-background-color: #25274D;
 }
-.refreshButton{
--fx-background-color: none;
--fx-background-image: url("images/rfButton.png");
--fx-background-size: 35px;
- -fx-background-repeat: no-repeat;
- -fx-background-position: 90%;
- -fx-cursor: hand;
-}
-.refreshButton:hover{
--fx-background-image: url("images/rfButtonHover.png");
-}
 .transparent{
 -fx-background: #25274D;
 -fx-background-color: #25274D;
@@ -109,4 +98,15 @@
 }
 .backButton:hover{
 -fx-background-image: url("images/backButtonHover.png");
+}
+.logoutButton{
+-fx-background-color: none;
+-fx-background-image: url("images/logoutButton.png");
+-fx-background-size: 35px;
+ -fx-background-repeat: no-repeat;
+ -fx-background-position: 90%;
+ -fx-cursor: hand;
+}
+.logoutButton:hover{
+-fx-background-image: url("images/logoutButtonHover.png");
 }

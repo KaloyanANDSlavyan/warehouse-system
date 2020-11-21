@@ -3,14 +3,20 @@ package system.application.controllers;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import system.backend.services.CryptoService;
 
+import java.io.IOException;
 import java.util.Base64;
 
 public class LoginScreenController {
@@ -51,5 +57,28 @@ public class LoginScreenController {
     public void handleButton3Action(ActionEvent actionEvent) {
         System.out.println("You clicked " + agentButton.getText());
         setLoader("agentLoginFXML");
+    }
+
+    public void loadStage(String fxmlPath) {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+        Parent loginScreenRoot = null;
+
+        try {
+            loginScreenRoot = (Parent) loader.load();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't load the stage.");
+        }
+
+        if (loginScreenRoot == null)
+            throw new AssertionError();
+
+        Scene adminPanelScene = new Scene(loginScreenRoot);
+        Stage loginScreenStage = new Stage();
+        loginScreenStage.setScene(adminPanelScene);
+        loginScreenStage.initStyle(StageStyle.UNDECORATED);
+
+        loginScreenStage.show();
     }
 }

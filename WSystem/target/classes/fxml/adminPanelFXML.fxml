@@ -28,7 +28,7 @@
                   <Font name="Consolas Bold" size="13.0" />
                </font>
             </Label>
-            <Button fx:id="refreshButton" layoutX="912.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleRefreshButton" prefHeight="42.0" prefWidth="37.0" styleClass="refreshButton" />
+            <Button fx:id="logoutButton" layoutX="907.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="48.0" prefWidth="44.0" styleClass="logoutButton" />
          </children>
       </AnchorPane>
       <GridPane layoutX="-1.0" layoutY="55.0" prefHeight="625.0" prefWidth="169.0" styleClass="gridPane">

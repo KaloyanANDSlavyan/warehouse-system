@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ViewOwnersController implements Initializable {
+public class ViewOwnersController extends UserController implements Initializable {
     @FXML
     private AnchorPane pane = null;
     @FXML

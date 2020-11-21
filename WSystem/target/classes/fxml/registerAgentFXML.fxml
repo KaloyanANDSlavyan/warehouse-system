@@ -106,7 +106,7 @@
                   </Hyperlink>
                </children>
             </AnchorPane>
-            <Label fx:id="successLabel" layoutX="193.0" layoutY="482.0" text="Successfully registered an agent. Please refresh" textFill="#0dc300" visible="false" />
+            <Label fx:id="successLabel" layoutX="232.0" layoutY="482.0" text="Successfully registered an agent." textFill="#0dc300" visible="false" />
             <VBox fx:id="consVbox1" layoutX="468.0" layoutY="174.0" prefHeight="160.0" prefWidth="162.0" style="-fx-background-color: #25274D; -fx-border-color: #14152B;" visible="false" />
             <VBox fx:id="consVbox2" layoutX="467.0" layoutY="393.0" prefHeight="160.0" prefWidth="162.0" style="-fx-background-color: #25274D; -fx-border-color: #14152B;" visible="false" />
             <Label fx:id="violationsLabel" layoutX="176.0" layoutY="482.0" text="Couldn't register the user. Please check the violations." textFill="RED" visible="false" />
