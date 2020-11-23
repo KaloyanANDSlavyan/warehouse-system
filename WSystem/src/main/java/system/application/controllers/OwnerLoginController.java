@@ -34,6 +34,8 @@ public class OwnerLoginController {
     private Label loginFalseLabel = null;
     private static final PseudoClass fieldsCheck_pseudoClass = PseudoClass.getPseudoClass("fieldsCheck");
 
+
+
     public void setPseudoClassState(boolean state){
         usernameField.pseudoClassStateChanged(fieldsCheck_pseudoClass, state);
         passwordField.pseudoClassStateChanged(fieldsCheck_pseudoClass, state);

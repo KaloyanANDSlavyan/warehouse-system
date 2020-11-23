@@ -52,7 +52,12 @@
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="warehousesButton" mnemonicParsing="false" onAction="#handleButton3Action" prefHeight="156.0" prefWidth="316.0" styleClass="profilesButton" text="Warehouses" textFill="#e1dfdf" GridPane.rowIndex="3">
+            <Button fx:id="reportsButton" mnemonicParsing="false" onAction="#handleButton3Action" prefHeight="156.0" prefWidth="316.0" styleClass="profilesButton" text="Reports" textFill="#e1dfdf" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Agency FB Bold" size="22.0" />
+               </font>
+            </Button>
+            <Button fx:id="profileButton" mnemonicParsing="false" onAction="#handleProfileButton" prefHeight="156.0" prefWidth="311.0" styleClass="createAgentButton" text="Profile" textFill="#e1dfdf" GridPane.rowIndex="2">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>

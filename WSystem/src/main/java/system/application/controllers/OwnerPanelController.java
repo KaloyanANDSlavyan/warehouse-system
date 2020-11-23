@@ -26,8 +26,10 @@ public class OwnerPanelController {
     @FXML
     private Button assignAgentsButton = null;
     @FXML
-    protected Button warehousesButton = new Button();
-    protected static Button warehousesButton_static = new Button();
+    private Button profileButton = null;
+    @FXML
+    protected Button reportsButton = new Button();
+    protected static Button reportsButton_static = new Button();
     @FXML
     private Label firstNameLabel = null;
     @FXML
@@ -37,8 +39,9 @@ public class OwnerPanelController {
     private WSystem wSystem = WSystem.getInstance();
     private Owner owner;
 
+
     public void initialize(){
-        // here the setFirstNameLabel method should be called with owner parameter
+        //setFirstNameLabel();
     }
     public void setFirstNameLabel(Owner owner){     // Sets the firstNameLabel to the first name of the given owner
         this.owner = owner;
@@ -74,7 +77,7 @@ public class OwnerPanelController {
     }
 
     public void handleButton3Action(ActionEvent event) {
-        System.out.println("You clicked: " + warehousesButton.getText());
+        System.out.println("You clicked: " + reportsButton.getText());
     }
     public void closeStage(ActionEvent event){
         logoutButton = (Button) event.getSource();
@@ -102,5 +105,9 @@ public class OwnerPanelController {
         loginScreenStage.initStyle(StageStyle.UNDECORATED);
 
         loginScreenStage.show();
+    }
+
+    public void handleProfileButton(ActionEvent event) {
+        System.out.println("You clicked: " + profileButton.getText());
     }
 }

@@ -74,9 +74,9 @@ public class LoginScreenController {
         if (loginScreenRoot == null)
             throw new AssertionError();
 
-        Scene adminPanelScene = new Scene(loginScreenRoot);
+        Scene scene = new Scene(loginScreenRoot);
         Stage loginScreenStage = new Stage();
-        loginScreenStage.setScene(adminPanelScene);
+        loginScreenStage.setScene(scene);
         loginScreenStage.initStyle(StageStyle.UNDECORATED);
 
         loginScreenStage.show();
