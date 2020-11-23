@@ -28,7 +28,7 @@
                <font>
                   <Font name="Gulim" size="16.0" />
                </font></Button>
-            <Label fx:id="loginFalseLabel" layoutX="139.0" layoutY="278.0" styleClass="loginFalseLabel" stylesheets="@../styling/loginScreenCSS.css" text="Username or password is incorrect" visible="false" />
+            <Label fx:id="loginFalseLabel" layoutX="137.0" layoutY="279.0" styleClass="loginFalseLabel" stylesheets="@../styling/loginScreenCSS.css" text="Username or password is incorrect." visible="false" />
          </children>
       </AnchorPane>
    </children>

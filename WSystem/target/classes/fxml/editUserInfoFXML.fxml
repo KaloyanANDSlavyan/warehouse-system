@@ -10,8 +10,8 @@
 <AnchorPane prefHeight="400.0" prefWidth="400.0" styleClass="pane" stylesheets="@../styling/registrationScreenCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.EditUserInfoController">
    <children>
       <TextField fx:id="firstNameField" layoutX="103.0" layoutY="77.0" prefHeight="27.0" prefWidth="200.0" promptText="First name" styleClass="editFields" />
-      <Button layoutX="103.0" layoutY="360.0" mnemonicParsing="false" onAction="#handleDoneButton" prefHeight="25.0" prefWidth="200.0" styleClass="registerButton" text="Done" />
-      <TextField fx:id="lastNameField" layoutX="103.0" layoutY="122.0" prefHeight="27.0" prefWidth="200.0" promptText="Last name" styleClass="editFields" />
+      <Button layoutX="100.0" layoutY="361.0" mnemonicParsing="false" onAction="#handleDoneButton" prefHeight="25.0" prefWidth="200.0" styleClass="registerButton" text="Done" />
+      <TextField fx:id="lastNameField" layoutX="103.0" layoutY="124.0" prefHeight="27.0" prefWidth="200.0" promptText="Last name" styleClass="editFields" />
       <TextField fx:id="phoneNumberField" layoutX="103.0" layoutY="314.0" prefHeight="27.0" prefWidth="200.0" promptText="Phone number" styleClass="editFields" />
       <Label layoutX="167.0" layoutY="2.0" styleClass="userTypeLabel" text="EDIT">
          <font>
@@ -20,7 +20,7 @@
       </Label>
       <TextField fx:id="usernameField" layoutX="103.0" layoutY="173.0" prefHeight="27.0" prefWidth="200.0" promptText="Username" styleClass="editFields" />
       <TextField fx:id="emailField" layoutX="103.0" layoutY="267.0" prefHeight="27.0" prefWidth="200.0" promptText="Email Address" styleClass="editFields" />
-      <PasswordField fx:id="passwordField" layoutX="103.0" layoutY="217.0" prefHeight="27.0" prefWidth="200.0" promptText="Password" styleClass="editFields" />
+      <PasswordField fx:id="passwordField" layoutX="103.0" layoutY="219.0" prefHeight="27.0" prefWidth="200.0" promptText="Password" styleClass="editFields" />
       <Button fx:id="exitButton" layoutX="353.0" layoutY="4.0" mnemonicParsing="false" onAction="#handleExitButton" styleClass="exitButton" text="X" textFill="#2e9cca">
          <font>
             <Font name="System Bold" size="22.0" />

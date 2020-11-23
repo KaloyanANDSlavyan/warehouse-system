@@ -16,21 +16,22 @@
                   <Font name="Agency FB Bold" size="64.0" />
                </font>
             </Label>
-            <TextField fx:id="usernameField" layoutX="143.0" layoutY="167.0" prefHeight="25.0" prefWidth="175.0" promptText="Username" styleClass="usernameField">
+            <TextField fx:id="usernameField" layoutX="131.0" layoutY="169.0" prefHeight="25.0" prefWidth="200.0" promptText="Username" styleClass="usernameField">
                <font>
                   <Font name="Gulim" size="13.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="passwordField" layoutX="143.0" layoutY="225.0" prefHeight="25.0" prefWidth="175.0" promptText="Password" styleClass="passwordField">
+            <PasswordField fx:id="passwordField" layoutX="131.0" layoutY="225.0" prefHeight="25.0" prefWidth="200.0" promptText="Password" styleClass="passwordField">
                <font>
                   <Font name="Gulim" size="13.0" />
                </font>
             </PasswordField>
-            <Button fx:id="loginButton" layoutX="143.0" layoutY="320.0" mnemonicParsing="false" onAction="#setOnAction" prefHeight="25.0" prefWidth="175.0" styleClass="loginButton" text="Login">
+            <Button fx:id="loginButton" layoutX="131.0" layoutY="320.0" mnemonicParsing="false" onAction="#setOnAction" prefHeight="30.0" prefWidth="200.0" styleClass="loginButton" text="Login">
                <font>
                   <Font name="Gulim" size="16.0" />
                </font>
             </Button>
+            <Label fx:id="loginFalseLabel" layoutX="138.0" layoutY="275.0" styleClass="loginFalseLabel" stylesheets="@../styling/loginScreenCSS.css" text="Username or password is incorrect." visible="false" />
          </children>
       </AnchorPane>
    </children>
