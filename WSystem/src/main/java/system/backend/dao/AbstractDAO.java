@@ -4,11 +4,9 @@ import system.backend.Configuration;
 import system.backend.profiles.Admin;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 
 abstract public class AbstractDAO<T> implements DAO<T> {
@@ -30,11 +28,23 @@ abstract public class AbstractDAO<T> implements DAO<T> {
         }
     }
 
+    public void delete(T object){
+        manager.getTransaction().begin();
+        manager.remove(object);
+        manager.getTransaction().commit();
+    }
+
     public void deleteByID(Class<T> c, Long id){
         T object = manager.find(c, id);
 
         manager.getTransaction().begin();
         manager.remove(object);
+        manager.getTransaction().commit();
+    }
+
+    public void update(T object){
+        manager.getTransaction().begin();
+        manager.merge(object);
         manager.getTransaction().commit();
     }
 
@@ -48,6 +58,21 @@ abstract public class AbstractDAO<T> implements DAO<T> {
         List<T> results = query.getResultList();
 
         return results;
+    }
+
+    public void deleteAll(String table){
+//        CriteriaBuilder cb = manager.getCriteriaBuilder();
+//        CriteriaDelete<T> delete = cb.createCriteriaDelete(c);
+//        delete.from(c);
+//
+//        Query query = manager.createQuery(delete);
+//        manager.getTransaction().begin();
+//        query.executeUpdate();
+//        manager.getTransaction().commit();
+        manager.getTransaction().begin();
+        Query q = manager.createQuery("DELETE FROM " + table);
+        q.executeUpdate();
+        manager.getTransaction().commit();
     }
 
     public T findBy2Values(Class<T> c, String column1, String column2, String value1, String value2) {
@@ -78,5 +103,47 @@ abstract public class AbstractDAO<T> implements DAO<T> {
         T result = typed.getSingleResult();
 
         return result;
+    }
+
+    public T findBy1Value(Class<T> c, String column1, String value) {
+        CriteriaBuilder cb = manager.getCriteriaBuilder();
+        CriteriaQuery<T> q = cb.createQuery(c);
+        Root<T> entity = q.from(c);
+        ParameterExpression<String> p = cb.parameter(String.class, column1);
+
+        // Setting the query
+        q.select(entity).where(cb.equal(entity.get(column1), p));
+
+        // Executing the query
+        TypedQuery<T> typed = manager.createQuery(q);
+        typed.setParameter(column1, value);
+
+        try {
+            T result = typed.getSingleResult();
+            return result;
+        } catch(Exception exception){
+            return null;
+        }
+    }
+
+    public T findBy1ValueExcept(Class<T> c, String column1, String value, long ignoreThisID){
+        CriteriaBuilder cb = manager.getCriteriaBuilder();
+        CriteriaQuery<T> q = cb.createQuery(c);
+        Root<T> entity = q.from(c);
+        ParameterExpression<String> p = cb.parameter(String.class, column1);
+
+        // Setting the query
+        q.select(entity).where(cb.equal(entity.get(column1), p), cb.notEqual(entity.get("ID"), ignoreThisID));
+
+        // Executing the query
+        TypedQuery<T> typed = manager.createQuery(q);
+        typed.setParameter(column1, value);
+
+        try {
+            T result = typed.getSingleResult();
+            return result;
+        } catch(Exception e){
+            return null;
+        }
     }
 }

@@ -2,6 +2,9 @@ package system.backend.profiles;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import system.backend.constraints.MyUnique;
+import system.backend.validators.groups.OnSaveChecks;
+import system.backend.validators.groups.OnUpdateChecks;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -43,6 +46,7 @@ abstract public class AbstractProfile implements Profile {
 //            @Pattern(regexp = "(?!.*[-]{2,}.*).*", message = "Hyphon is allowed only once in a row"),
 //            @Pattern(regexp = "(?!.*[_]{2,}.*).*", message = "Underscore is allowed only once in a row")
     })
+    @MyUnique(type = {Owner.class, Agent.class, Admin.class}, column = "username")
     protected String username;
     @Size(min = 8, message = "Password - too short")
     @Size(max = 30, message = "Password - too long")
@@ -51,7 +55,7 @@ abstract public class AbstractProfile implements Profile {
             @Pattern(regexp = "(?=.*[A-Z]).*", message = "Password - must contain at least one capital letter"),
             @Pattern(regexp = "(?=.*[a-z]).*", message = "Password - must contain at least one lowercase letter"),
             @Pattern(regexp = "(?=.*[_@*#$%^&+=]).*", message = "Password - must contain at least one special character"),
-            @Pattern(regexp = "(?=\\S+$).*", message = "Password - cannot contain spaces"),
+            @Pattern(regexp = "(?=\\S+$).*", message = "Password - cannot contain spaces")
     })
     protected String password;
     @Transient

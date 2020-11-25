@@ -75,6 +75,7 @@ public class Configuration {
                     LOGGER.info("Successfully finished creating factory and manager!");
                     // Creating the system
                     WSystem wSystem = WSystem.getInstance();
+                    wSystem.initializeDB();
                     LOGGER.info("Successfully finished creating the system!");
                     LOGGER.info("Successfully finished the configuration of the application!");
                 } catch (Exception e) {

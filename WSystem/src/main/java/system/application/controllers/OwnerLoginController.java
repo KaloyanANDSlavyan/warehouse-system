@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import system.backend.WSystem;
+import system.backend.dataholders.OwnerDataHolder;
 import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
 import system.backend.services.AuthorizationService;
@@ -79,6 +81,10 @@ public class OwnerLoginController {
         LOGGER.info("Successfully finished the authorization of the agent");
 
         if(success){
+            WSystem wSystem = WSystem.getInstance();
+            Owner owner = wSystem.findOwnerBy2Values(username, password);
+            OwnerDataHolder ownerDataHolder = OwnerDataHolder.getInstance();
+            ownerDataHolder.setOwner(owner);
             System.out.println("Successfully logged in.");
             setPseudoClassState(false);
             closeStage(actionEvent);

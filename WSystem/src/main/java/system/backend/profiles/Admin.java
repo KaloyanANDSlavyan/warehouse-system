@@ -1,13 +1,12 @@
 package system.backend.profiles;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import system.backend.WSystem;
+import system.backend.services.ValidationService;
+import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
-import java.util.Collections;
 import java.util.Set;
 
 @Entity
@@ -24,6 +23,8 @@ public class Admin extends AbstractProfile {
 
     public Set<ConstraintViolation<Object>> createOwner(String firstName, String lastName,
                                                    String username, String pass, String email, String phone) {
+        ValidationService.getInstance().setValidationIndicator(ValidationIndicator.OWNER);
+
         Owner owner = new Owner();
         owner.setFirstname(firstName);
         owner.setLastname(lastName);
@@ -46,6 +47,8 @@ public class Admin extends AbstractProfile {
 
     public Set<ConstraintViolation<Object>> createAgent(String firstName, String lastName,
                                                    String username, String pass, String email, String phone) {
+        ValidationService.getInstance().setValidationIndicator(ValidationIndicator.AGENT);
+
         Agent agent = new Agent();
         agent.setFirstname(firstName);
         agent.setLastname(lastName);

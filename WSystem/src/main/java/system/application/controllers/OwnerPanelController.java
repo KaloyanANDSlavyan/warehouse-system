@@ -12,11 +12,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import system.backend.WSystem;
+import system.backend.dataholders.OwnerDataHolder;
 import system.backend.profiles.Owner;
 
 import java.io.IOException;
 
-public class OwnerPanelController {
+public class OwnerPanelController  {
     @FXML
     private AnchorPane anchorPane = null;
     @FXML
@@ -41,10 +42,11 @@ public class OwnerPanelController {
 
 
     public void initialize(){
-        //setFirstNameLabel();
+        OwnerDataHolder ownerDataHolder = OwnerDataHolder.getInstance();
+        owner = ownerDataHolder.getOwner();
+        setFirstNameLabel(owner);
     }
     public void setFirstNameLabel(Owner owner){     // Sets the firstNameLabel to the first name of the given owner
-        this.owner = owner;
         firstNameLabel.setText(owner.getFirstname());
     }
 
@@ -78,6 +80,8 @@ public class OwnerPanelController {
 
     public void handleButton3Action(ActionEvent event) {
         System.out.println("You clicked: " + reportsButton.getText());
+
+
     }
     public void closeStage(ActionEvent event){
         logoutButton = (Button) event.getSource();

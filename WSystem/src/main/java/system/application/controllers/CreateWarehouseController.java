@@ -6,6 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import system.backend.WSystem;
+import system.backend.dataholders.OwnerDataHolder;
+import system.backend.others.Warehouse;
+import system.backend.profiles.Owner;
+
+import javax.validation.ConstraintViolation;
+import java.util.Set;
 
 public class CreateWarehouseController {
 
@@ -26,10 +32,15 @@ public class CreateWarehouseController {
     private Label successLabel = null;
     private WSystem wSystem = WSystem.getInstance();
 
+    private Owner owner;
+
     public void initialize(){
         comboBoxItems.addAll("Food Industry", "Tech Industry", "Military");    // Adds items to the list, which will contain different warehouse types
         typeBox.setItems(comboBoxItems);    // sets the list to the ComboBox
         stockTypeView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE); // Enables multiple choice for the ListView
+
+        OwnerDataHolder ownerDataHolder = OwnerDataHolder.getInstance();
+        owner = ownerDataHolder.getOwner();
     }
 
     public void addToListView(){    // Method which adds items to the ListView for given index of ComboBox
@@ -53,14 +64,16 @@ public class CreateWarehouseController {
 
     public void createButtonAction(ActionEvent event) {
         System.out.println("Create Button Clicked.");
-        String comboBoxItem = typeBox.getSelectionModel().getSelectedItem();
+        String category = typeBox.getSelectionModel().getSelectedItem();
 
-        ObservableList<String> selectedItems = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
-        for (String o : selectedItems){
+        ObservableList<String> stockType = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
+        for (String o : stockType){
             System.out.println("o = " + o );
         }
-        String size = sizeField.getText();
-        String temperature = temperatureField.getText();
+        double size = Double.parseDouble(sizeField.getText());
+        double temperature = Double.parseDouble(temperatureField.getText());
+
+        Set<ConstraintViolation<Object>> cons = owner.createWarehouse(category, size, temperature, stockType);
     }
 
     public void handleComboBox(ActionEvent event) {

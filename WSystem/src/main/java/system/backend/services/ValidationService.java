@@ -1,7 +1,6 @@
 package system.backend.services;
 
-import system.backend.profiles.AbstractProfile;
-import system.backend.profiles.Profile;
+import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
@@ -14,6 +13,8 @@ public class ValidationService {
     private static ValidationService service;
     private ValidatorFactory factory;
     private Validator validator;
+    private ValidationIndicator validationIndicator;
+    private Long ignoreThisID = null;
 
     ValidationService(){
         createFactory();
@@ -31,6 +32,22 @@ public class ValidationService {
     public Set<ConstraintViolation<Object>> validate(Object profile){
         Set<ConstraintViolation<Object>> constraints = validator.validate(profile);
         return constraints;
+    }
+
+    public void setValidationIndicator(ValidationIndicator validationIndicator) {
+        this.validationIndicator = validationIndicator;
+    }
+
+    public ValidationIndicator getValidationIndicator() {
+        return validationIndicator;
+    }
+
+    public Long getIgnoreThisID() {
+        return ignoreThisID;
+    }
+
+    public void setIgnoreThisID(Long ignoreThisID) {
+        this.ignoreThisID = ignoreThisID;
     }
 
     public static ValidationService getInstance(){
