@@ -3,10 +3,11 @@ package system.backend;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import system.backend.dao.*;
+import system.backend.others.Indicator;
 import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.profiles.*;
-import system.backend.services.ValidationService;
+import system.backend.services.*;
 import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.validation.ConstraintViolation;
@@ -28,6 +29,11 @@ public class WSystem {
     private WarehouseDAO warehouseDAO;
     private StockTypeDAO stockTypeDAO;
     private ProfileDAO<Profile> profileDAO;
+    //Validation Services
+    private OwnerValidation ownerValidation;
+    private AgentValidation agentValidation;
+    private AdminValidation adminValidation;
+    private WarehouseValidation warehouseValidation;
     
     WSystem(){
         // Creating the system
@@ -38,6 +44,10 @@ public class WSystem {
         setWarehouseDAO(new WarehouseDAO());
         setProfileDAO(new ProfileDAO<>());
         setStockTypeDAO(new StockTypeDAO());
+        setOwnerValidation(new OwnerValidation());
+        setAgentValidation(new AgentValidation());
+        setAdminValidation(new AdminValidation());
+        setWarehouseValidation(new WarehouseValidation());
 
         agents = new ArrayList<>();
         owners = new ArrayList<>();
@@ -49,24 +59,25 @@ public class WSystem {
         return wsystem;
     }
 
-    public Set<ConstraintViolation<Object>> createProfile(Profile profile){
-        // Validating profile
-        Set<ConstraintViolation<Object>> constraints
-                = ValidationService.getInstance().validate(profile);
-
-        if (constraints.isEmpty()){
-            if(profile.getClass().getSimpleName().equals("Admin")) {
-                setAdmin(profile);
-            }
-            else if(profile.getClass().getSimpleName().equals("Owner"))
-                owners.add((Owner)profile);
-            else if(profile.getClass().getSimpleName().equals("Agent"))
-                agents.add((Agent)profile);
-
-            profileDAO.save(profile);
-        }
-        return constraints;
-    }
+//    public Set<ConstraintViolation<Object>> createProfile(Profile profile){
+//        // Validating profile
+//
+//        Set<ConstraintViolation<Object>> constraints
+//                = alidate(profile);
+//
+//        if (constraints.isEmpty()){
+//            if(profile.getClass().getSimpleName().equals("Admin")) {
+//                setAdmin(profile);
+//            }
+//            else if(profile.getClass().getSimpleName().equals("Owner"))
+//                owners.add((Owner)profile);
+//            else if(profile.getClass().getSimpleName().equals("Agent"))
+//                agents.add((Agent)profile);
+//
+//            profileDAO.save(profile);
+//        }
+//        return constraints;
+//    }
 
     public void createAdmin(String firstName, String lastName,
                             String username, String pass){
@@ -74,14 +85,20 @@ public class WSystem {
 //        pass = cryptoService.encrypt(pass, cryptoService.getKey(), cryptoService.getCipher());
 
         adminDAO.deleteIfExists();
-        ValidationService.getInstance().setValidationIndicator(ValidationIndicator.ADMIN);
+        Indicator.getInstance().setValidationIndicator(ValidationIndicator.ADMIN);
 
-        Profile admin = new Admin(firstName, lastName, username, pass);
-        Set<ConstraintViolation<Object>> constraints = createProfile(admin);
+        Admin admin = new Admin(firstName, lastName, username, pass);
+        Set<ConstraintViolation<Admin>> constraints = adminValidation.validate(admin);
 
-        for (ConstraintViolation<Object> con : constraints) {
-            LOGGER.error("Admin couldn't be validated");
-            LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+        if(constraints.isEmpty()) {
+            this.admin = admin;
+            adminDAO.save(admin);
+        }
+        else {
+            for (ConstraintViolation<Admin> con : constraints) {
+                LOGGER.error("Admin couldn't be validated");
+                LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+            }
         }
     }
 
@@ -91,20 +108,21 @@ public class WSystem {
 //            stockTypeDAO.deleteAll("StockType");
 //            stockTypeDAO.setAutoIncrement();
 //        }
-        if(!stockTypeList.isEmpty()){
-            for(StockType stock : stockTypeList)
-                stockTypeDAO.delete(stock);
-            stockTypeDAO.setAutoIncrement();
-        }
-
-        String[] stockTypes = {"Vegetables", "Fruits", "Seeds",
-                               "Computers", "Smartphones", "Chargers",
-                               "Explosives", "Guns", "Military Equipment"};
-        StockType[] stockTypes1 = new StockType[9];
-        for(int i = 0; i < stockTypes.length; i++){
-            stockTypes1[i] = new StockType();
-            stockTypes1[i].setType(stockTypes[i]);
-            stockTypeDAO.save(stockTypes1[i]);
+//        if(!stockTypeList.isEmpty()){
+//            for(StockType stock : stockTypeList)
+//                stockTypeDAO.delete(stock);
+//            stockTypeDAO.setAutoIncrement();
+//        }
+        if(stockTypeList.isEmpty()) {
+            String[] stockTypes = {"Vegetables", "Fruits", "Seeds",
+                    "Computers", "Smartphones", "Chargers",
+                    "Explosives", "Guns", "Military Equipment"};
+            StockType[] stockTypes1 = new StockType[9];
+            for (int i = 0; i < stockTypes.length; i++) {
+                stockTypes1[i] = new StockType();
+                stockTypes1[i].setType(stockTypes[i]);
+                stockTypeDAO.save(stockTypes1[i]);
+            }
         }
     }
 
@@ -182,6 +200,38 @@ public class WSystem {
 
     public void setProfileDAO(ProfileDAO<Profile> profileDAO) {
         this.profileDAO = profileDAO;
+    }
+
+    public OwnerValidation getOwnerValidation() {
+        return ownerValidation;
+    }
+
+    public void setOwnerValidation(OwnerValidation ownerValidation) {
+        this.ownerValidation = ownerValidation;
+    }
+
+    public AgentValidation getAgentValidation() {
+        return agentValidation;
+    }
+
+    public void setAgentValidation(AgentValidation agentValidation) {
+        this.agentValidation = agentValidation;
+    }
+
+    public AdminValidation getAdminValidation() {
+        return adminValidation;
+    }
+
+    public void setAdminValidation(AdminValidation adminValidation) {
+        this.adminValidation = adminValidation;
+    }
+
+    public WarehouseValidation getWarehouseValidation() {
+        return warehouseValidation;
+    }
+
+    public void setWarehouseValidation(WarehouseValidation warehouseValidation) {
+        this.warehouseValidation = warehouseValidation;
     }
 
     public StockTypeDAO getStockTypeDAO() {

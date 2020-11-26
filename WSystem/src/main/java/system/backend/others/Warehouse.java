@@ -3,6 +3,9 @@ package system.backend.others;
 import system.backend.profiles.Owner;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Set;
 
@@ -11,7 +14,11 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long ID;
+    @Max(value = 1000000, message = "Size - too long")
+    //@Pattern(regexp = "[0-9]", message = "Size - can contain only digits")
     private double size;
+    @Max(value = 50, message = "Temperature - too long")
+    //@Pattern(regexp = "[0-9]", message = "Temperature - can contain only digits")
     private double temperature;
     private String category;
     @ManyToMany(cascade = CascadeType.PERSIST)
@@ -73,5 +80,6 @@ public class Warehouse {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+        owner.getWarehouses().add(this);
     }
 }

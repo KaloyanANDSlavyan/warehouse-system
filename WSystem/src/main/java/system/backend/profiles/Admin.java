@@ -2,6 +2,9 @@ package system.backend.profiles;
 
 import org.apache.logging.log4j.LogManager;
 import system.backend.WSystem;
+import system.backend.others.Indicator;
+import system.backend.services.AgentValidation;
+import system.backend.services.OwnerValidation;
 import system.backend.services.ValidationService;
 import system.backend.validators.indicators.ValidationIndicator;
 
@@ -21,9 +24,12 @@ public class Admin extends AbstractProfile {
         LOGGER = LogManager.getLogger();
     }
 
-    public Set<ConstraintViolation<Object>> createOwner(String firstName, String lastName,
+    public Set<ConstraintViolation<Owner>> createOwner(String firstName, String lastName,
                                                    String username, String pass, String email, String phone) {
-        ValidationService.getInstance().setValidationIndicator(ValidationIndicator.OWNER);
+        Indicator.getInstance().setValidationIndicator(ValidationIndicator.OWNER);
+
+        WSystem wSystem = WSystem.getInstance();
+        OwnerValidation ownerValidation = wSystem.getOwnerValidation();
 
         Owner owner = new Owner();
         owner.setFirstname(firstName);
@@ -33,21 +39,27 @@ public class Admin extends AbstractProfile {
         owner.setEmailAddress(email);
         owner.setPhoneNumber(phone);
 
-        Set<ConstraintViolation<Object>> constraints =
-                WSystem.getInstance().createProfile(owner);
+        Set<ConstraintViolation<Owner>> constraints = ownerValidation.validate(owner);
 
-        for (ConstraintViolation<Object> con : constraints) {
-            LOGGER.error("Agent couldn't be validated");
-            LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
-            System.out.println(con.getPropertyPath());
-            System.out.println(con.getMessage());
+        if(constraints.isEmpty())
+            wSystem.getOwnerDAO().save(owner);
+        else {
+            for (ConstraintViolation<Owner> con : constraints) {
+                LOGGER.error("Agent couldn't be validated");
+                LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+                System.out.println(con.getPropertyPath());
+                System.out.println(con.getMessage());
+            }
         }
         return constraints;
     }
 
-    public Set<ConstraintViolation<Object>> createAgent(String firstName, String lastName,
+    public Set<ConstraintViolation<Agent>> createAgent(String firstName, String lastName,
                                                    String username, String pass, String email, String phone) {
-        ValidationService.getInstance().setValidationIndicator(ValidationIndicator.AGENT);
+        Indicator.getInstance().setValidationIndicator(ValidationIndicator.AGENT);
+
+        WSystem wSystem = WSystem.getInstance();
+        AgentValidation agentValidation = wSystem.getAgentValidation();
 
         Agent agent = new Agent();
         agent.setFirstname(firstName);
@@ -57,12 +69,15 @@ public class Admin extends AbstractProfile {
         agent.setEmailAddress(email);
         agent.setPhoneNumber(phone);
 
-        Set<ConstraintViolation<Object>> constraints =
-                WSystem.getInstance().createProfile(agent);
+        Set<ConstraintViolation<Agent>> constraints = agentValidation.validate(agent);
 
-        for (ConstraintViolation<Object> con : constraints) {
-            LOGGER.error("Agent couldn't be validated");
-            LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+        if(constraints.isEmpty())
+            wSystem.getAgentDAO().save(agent);
+        else {
+            for (ConstraintViolation<Agent> con : constraints) {
+                LOGGER.error("Agent couldn't be validated");
+                LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+            }
         }
         return constraints;
     }

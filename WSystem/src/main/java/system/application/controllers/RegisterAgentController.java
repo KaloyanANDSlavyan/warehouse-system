@@ -11,6 +11,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import system.backend.WSystem;
 import system.backend.profiles.Admin;
+import system.backend.profiles.Agent;
 import system.backend.profiles.Profile;
 
 import javax.validation.ConstraintViolation;
@@ -132,7 +133,7 @@ public class RegisterAgentController extends AdminPanelController implements Ini
 
         Admin admin = (Admin) wSystem.getAdmin();
 
-        Set<ConstraintViolation<Object>> cons =
+        Set<ConstraintViolation<Agent>> cons =
                 admin.createAgent(firstName, lastName, username, password, email, phoneNumber);
 
         if (cons.isEmpty()) {
@@ -183,8 +184,8 @@ public class RegisterAgentController extends AdminPanelController implements Ini
         violationsLabel.setVisible(true);
     }
 
-    public void addConstraints(Set<ConstraintViolation<Object>> cons){
-        for (ConstraintViolation<Object> con : cons) {
+    public void addConstraints(Set<ConstraintViolation<Agent>> cons){
+        for (ConstraintViolation<Agent> con : cons) {
             if (con.getPropertyPath().toString().equals("firstname"))
                 firstname_con.add(con.getMessage());
             else if (con.getPropertyPath().toString().equals("lastname"))
@@ -210,6 +211,19 @@ public class RegisterAgentController extends AdminPanelController implements Ini
     }
 
     public void showMessages(){
+
+        if(!firstname_con.isEmpty() && (!lastname_con.isEmpty() || !username_con.isEmpty()))
+            firstname_con.add("\n");
+
+        if(!lastname_con.isEmpty() && !username_con.isEmpty())
+            lastname_con.add("\n");
+
+        if(!pass_con.isEmpty() && (!email_con.isEmpty() || !phone_con.isEmpty()))
+            pass_con.add("\n");
+
+        if(!email_con.isEmpty() && !phone_con.isEmpty())
+            email_con.add("\n");
+
         System.out.println("\n\n\nShow messages:");
         System.out.println("First Name Violations:");
         for (String message : firstname_con) {

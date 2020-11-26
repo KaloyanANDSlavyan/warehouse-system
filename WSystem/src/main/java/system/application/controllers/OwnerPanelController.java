@@ -13,9 +13,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import system.backend.WSystem;
 import system.backend.dataholders.OwnerDataHolder;
+import system.backend.others.Warehouse;
 import system.backend.profiles.Owner;
 
 import java.io.IOException;
+import java.util.List;
 
 public class OwnerPanelController  {
     @FXML
@@ -81,7 +83,19 @@ public class OwnerPanelController  {
     public void handleButton3Action(ActionEvent event) {
         System.out.println("You clicked: " + reportsButton.getText());
 
-
+        List<Warehouse> warehouseList = owner.getWarehouses();
+        if(!warehouseList.isEmpty()) {
+            System.out.println("The owner has warehouses!");
+            for(Warehouse wh : warehouseList){
+                System.out.println("Warehouse " + wh.getID());
+                System.out.println("Category: " + wh.getCategory());
+                System.out.println("Size: " + wh.getSize());
+                System.out.println("Temperature: " + wh.getTemperature());
+                System.out.println("Stock types: " + wh.getStockTypes());
+                System.out.println();
+            }
+        }
+        else System.out.println("The owner doesn't have warehouses!");
     }
     public void closeStage(ActionEvent event){
         logoutButton = (Button) event.getSource();

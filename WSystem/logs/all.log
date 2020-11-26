@@ -1,28 +1,9 @@
-[INFO ] 2020-11-25 05:15:51.673 [Thread-2] Configuration - Successfully finished creating the database!
-[INFO ] 2020-11-25 05:16:06.228 [Thread-2] Configuration - Successfully connected to my-persistence-unit
-[INFO ] 2020-11-25 05:16:06.315 [Thread-2] Configuration - Successfully finished creating factory and manager!
-[INFO ] 2020-11-25 05:16:09.013 [Thread-2] Configuration - Successfully finished creating the system!
-[INFO ] 2020-11-25 05:16:09.013 [Thread-2] Configuration - Successfully finished the configuration of the application!
-[INFO ] 2020-11-25 05:16:30.828 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
-[ERROR] 2020-11-25 05:17:57.786 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:17:57.787 [JavaFX Application Thread] Admin - The phoneNumber is not valid!
-[ERROR] 2020-11-25 05:17:57.788 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:17:57.789 [JavaFX Application Thread] Admin - The firstname is not valid!
-[ERROR] 2020-11-25 05:18:08.358 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:08.359 [JavaFX Application Thread] Admin - The phoneNumber is not valid!
-[ERROR] 2020-11-25 05:18:26.801 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.802 [JavaFX Application Thread] Admin - The emailAddress is not valid!
-[ERROR] 2020-11-25 05:18:26.802 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.802 [JavaFX Application Thread] Admin - The firstname is not valid!
-[ERROR] 2020-11-25 05:18:26.803 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.803 [JavaFX Application Thread] Admin - The username is not valid!
-[ERROR] 2020-11-25 05:18:26.803 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.803 [JavaFX Application Thread] Admin - The username is not valid!
-[ERROR] 2020-11-25 05:18:26.804 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.804 [JavaFX Application Thread] Admin - The phoneNumber is not valid!
-[ERROR] 2020-11-25 05:18:26.804 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.805 [JavaFX Application Thread] Admin - The firstname is not valid!
-[ERROR] 2020-11-25 05:18:26.805 [JavaFX Application Thread] Admin - Agent couldn't be validated
-[ERROR] 2020-11-25 05:18:26.805 [JavaFX Application Thread] Admin - The username is not valid!
-[INFO ] 2020-11-25 05:20:59.975 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-25 05:33:32.348 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
+[INFO ] 2020-11-26 07:10:01.602 [Thread-2] Configuration - Successfully finished creating the database!
+[INFO ] 2020-11-26 07:10:13.016 [Thread-2] Configuration - Successfully connected to my-persistence-unit
+[INFO ] 2020-11-26 07:10:13.124 [Thread-2] Configuration - Successfully finished creating factory and manager!
+[INFO ] 2020-11-26 07:10:14.912 [Thread-2] Configuration - Successfully finished creating the system!
+[INFO ] 2020-11-26 07:10:14.913 [Thread-2] Configuration - Successfully finished the configuration of the application!
+[INFO ] 2020-11-26 07:12:20.381 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-11-26 07:16:43.991 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
+[INFO ] 2020-11-26 07:29:00.500 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-11-26 07:32:26.309 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin

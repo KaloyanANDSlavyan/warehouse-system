@@ -7,10 +7,14 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import system.backend.WSystem;
+import system.backend.others.Indicator;
 import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
 import system.backend.profiles.Profile;
+import system.backend.services.AgentValidation;
+import system.backend.services.OwnerValidation;
 import system.backend.services.ValidationService;
+import system.backend.services.WarehouseValidation;
 import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.validation.ConstraintViolation;
@@ -90,18 +94,20 @@ public class EditUserInfoController extends UserController {
     public void handleDoneButton(ActionEvent event) {
         System.out.println("Edit complete.");
 
+        WSystem wSystem = WSystem.getInstance();
+
         getNewData();
 
         if(owner != null){
-            ValidationService service = ValidationService.getInstance();
-            service.setValidationIndicator(ValidationIndicator.OWNER);
-            service.setIgnoreThisID(owner.getID());
+            OwnerValidation ownerValidation = wSystem.getOwnerValidation();
+            Indicator.getInstance().setValidationIndicator(ValidationIndicator.OWNER);
+            ownerValidation.setIgnoreThisID(owner.getID());
 
             getOldOwnerData();
             setNewOwnerData();
 
-            Set<ConstraintViolation<Object>> cons = service.validate(owner);
-            service.setIgnoreThisID(null);
+            Set<ConstraintViolation<Owner>> cons = ownerValidation.validate(owner);
+            ownerValidation.setIgnoreThisID(null);
 
             if(cons.isEmpty())
                 WSystem.getInstance().getOwnerDAO().update(owner);
@@ -109,7 +115,7 @@ public class EditUserInfoController extends UserController {
                 setOldOwnerData();
 
                 System.out.println("Couldn't update");
-                addConstraints(cons);
+                addOwnerConstraints(cons);
                 showMessages();
             }
 
@@ -117,15 +123,15 @@ public class EditUserInfoController extends UserController {
             static_lastName.setText(owner.getLastname());
             static_phoneNumber.setText(owner.getPhoneNumber());
         } else {
-            ValidationService service = ValidationService.getInstance();
-            service.setValidationIndicator(ValidationIndicator.AGENT);
-            service.setIgnoreThisID(agent.getID());
+            AgentValidation agentValidation = wSystem.getAgentValidation();
+            Indicator.getInstance().setValidationIndicator(ValidationIndicator.AGENT);
+            agentValidation.setIgnoreThisID(agent.getID());
 
             getOldAgentData();
             setNewAgentData();
 
-            Set<ConstraintViolation<Object>> cons = service.validate(agent);
-            service.setIgnoreThisID(null);
+            Set<ConstraintViolation<Agent>> cons = agentValidation.validate(agent);
+            agentValidation.setIgnoreThisID(null);
 
             if(cons.isEmpty())
                 WSystem.getInstance().getAgentDAO().update(agent);
@@ -133,7 +139,7 @@ public class EditUserInfoController extends UserController {
                 setOldAgentData();
 
                 System.out.println("Couldn't update");
-                addConstraints(cons);
+                addAgentConstraints(cons);
                 showMessages();
             }
             static_firstName.setText(agent.getFirstname());
@@ -210,9 +216,36 @@ public class EditUserInfoController extends UserController {
         agent.setPhoneNumber(oldPhone);
     }
 
-    public void addConstraints(Set<ConstraintViolation<Object>> cons){
+    public void addOwnerConstraints(Set<ConstraintViolation<Owner>> cons){
 
-        for (ConstraintViolation<Object> con : cons) {
+        for (ConstraintViolation<Owner> con : cons) {
+            if (con.getPropertyPath().toString().equals("firstname"))
+                firstname_con.add(con.getMessage());
+            else if (con.getPropertyPath().toString().equals("lastname"))
+                lastname_con.add(con.getMessage());
+            else if (con.getPropertyPath().toString().equals("username")) {
+                if (con.getMessage().equals(" is already taken")) {
+                    username_con.add("Username" + con.getMessage());
+                } else username_con.add(con.getMessage());
+            }
+            else if (con.getPropertyPath().toString().equals("password"))
+                pass_con.add(con.getMessage());
+            else if (con.getPropertyPath().toString().equals("emailAddress")) {
+                if (con.getMessage().equals(" is already taken"))
+                    email_con.add("Email address" + con.getMessage());
+                else email_con.add(con.getMessage());
+            }
+            else if (con.getPropertyPath().toString().equals("phoneNumber")) {
+                if (con.getMessage().equals(" is already taken"))
+                    phone_con.add("Phone number" + con.getMessage());
+                else phone_con.add(con.getMessage());
+            }
+        }
+    }
+
+    public void addAgentConstraints(Set<ConstraintViolation<Agent>> cons){
+
+        for (ConstraintViolation<Agent> con : cons) {
             if (con.getPropertyPath().toString().equals("firstname"))
                 firstname_con.add(con.getMessage());
             else if (con.getPropertyPath().toString().equals("lastname"))

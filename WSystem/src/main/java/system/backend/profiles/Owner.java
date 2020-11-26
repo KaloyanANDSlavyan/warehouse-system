@@ -6,9 +6,11 @@ import system.backend.constraints.MyUnique;
 import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.services.ValidationService;
+import system.backend.services.WarehouseValidation;
 import system.backend.validators.groups.OnSaveChecks;
 import system.backend.validators.groups.OnUpdateChecks;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -16,6 +18,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,14 +35,14 @@ public class Owner extends AbstractProfile {
     @MyUnique(type = Owner.class, column = "phoneNumber")
     private String phoneNumber;
 //(?!.*[!@#$%^&*)(-_=+\/'|<>~.,?)
-    @OneToMany(mappedBy = "owner")
-    private List<Warehouse> warehouses;
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL)
+    private List<Warehouse> warehouses = new ArrayList<>();
 
     public Owner(){
         super();
     }
 
-    public Set<ConstraintViolation<Object>> createWarehouse(String category, double size,
+    public Set<ConstraintViolation<Warehouse>> createWarehouse(String category, double size,
                                                             double temperature, List<String> stockType){
         WSystem wSystem = WSystem.getInstance();
 
@@ -53,12 +56,12 @@ public class Owner extends AbstractProfile {
         warehouse.setSize(size);
         warehouse.setTemperature(temperature);
         warehouse.setStockTypes(stockTypes);
-        warehouse.setOwner(this);
 
-        ValidationService validationService = ValidationService.getInstance();
-        Set<ConstraintViolation<Object>> cons = validationService.validate(warehouse);
+        WarehouseValidation warehouseValidation = wSystem.getWarehouseValidation();
+        Set<ConstraintViolation<Warehouse>> cons = warehouseValidation.validate(warehouse);
 
         if(cons.isEmpty()) {
+            warehouse.setOwner(this);
             wSystem.addWarehouseToDatabase(warehouse);
         }
 
@@ -79,5 +82,9 @@ public class Owner extends AbstractProfile {
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public List<Warehouse> getWarehouses() {
+        return warehouses;
     }
 }

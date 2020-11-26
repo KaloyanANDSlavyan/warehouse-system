@@ -11,6 +11,8 @@ import system.backend.others.Warehouse;
 import system.backend.profiles.Owner;
 
 import javax.validation.ConstraintViolation;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class CreateWarehouseController {
@@ -33,6 +35,10 @@ public class CreateWarehouseController {
     private WSystem wSystem = WSystem.getInstance();
 
     private Owner owner;
+
+    private List<String> size_con = new ArrayList<>();
+    private List<String> category_con = new ArrayList<>();
+    private List<String> temperature_con = new ArrayList<>();
 
     public void initialize(){
         comboBoxItems.addAll("Food Industry", "Tech Industry", "Military");    // Adds items to the list, which will contain different warehouse types
@@ -67,15 +73,51 @@ public class CreateWarehouseController {
         String category = typeBox.getSelectionModel().getSelectedItem();
 
         ObservableList<String> stockType = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
-        for (String o : stockType){
-            System.out.println("o = " + o );
+        for (String o : stockType) {
+            System.out.println("o = " + o);
         }
-        double size = Double.parseDouble(sizeField.getText());
-        double temperature = Double.parseDouble(temperatureField.getText());
+        double size;
+        double temperature;
 
-        Set<ConstraintViolation<Object>> cons = owner.createWarehouse(category, size, temperature, stockType);
+        if (sizeField.getText().isEmpty() || temperatureField.getText().isEmpty())
+            System.out.println("Please fill all of the required data!");
+        else {
+            if (stockType.isEmpty())
+                System.out.println("Please select stock types!");
+            else {
+                size = Double.parseDouble(sizeField.getText());
+                temperature = Double.parseDouble(temperatureField.getText());
+                Set<ConstraintViolation<Warehouse>> cons = owner.createWarehouse(category, size, temperature, stockType);
+
+                size_con.clear();
+                temperature_con.clear();
+
+                if (!cons.isEmpty()) {
+                    for (ConstraintViolation<Warehouse> con : cons) {
+                        if (con.getPropertyPath().toString().equals("size"))
+                            size_con.add(con.getMessage());
+                        else if (con.getPropertyPath().toString().equals("temperature"))
+                            temperature_con.add(con.getMessage());
+                    }
+                    System.out.println("\n\n\nShow messages:");
+                    System.out.println("Size Violations:");
+
+                    for (String message : size_con) {
+                        if (!message.isEmpty()) {
+                            System.out.println(message);
+                        }
+                    }
+                    System.out.println("\n");
+                    System.out.println("Temperature Violations:");
+                    for (String message : temperature_con) {
+                        if (!message.isEmpty()) {
+                            System.out.println(message);
+                        }
+                    }
+                }
+            }
+        }
     }
-
     public void handleComboBox(ActionEvent event) {
         addToListView();
     }

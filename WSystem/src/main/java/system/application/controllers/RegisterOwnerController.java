@@ -16,16 +16,16 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import system.backend.WSystem;
+import system.backend.dataholders.OwnerDataHolder;
 import system.backend.profiles.Admin;
+import system.backend.profiles.Owner;
 import system.backend.profiles.Profile;
+import system.backend.services.ValidationService;
 
 import javax.validation.ConstraintViolation;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 public class RegisterOwnerController extends AdminPanelController implements Initializable {
 
@@ -61,6 +61,8 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
     @FXML
     private Hyperlink why2 = null;
     private WSystem wSystem = WSystem.getInstance();
+
+    private Owner owner;
 
     private String firstName;
     private String lastName;
@@ -140,7 +142,7 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
 
         Admin admin = (Admin) wSystem.getAdmin();
 
-        Set<ConstraintViolation<Object>> cons =
+        Set<ConstraintViolation<Owner>> cons =
                 admin.createOwner(firstName, lastName, username, password, email, phoneNumber);
 
         if (cons.isEmpty()) {
@@ -154,15 +156,6 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
 
         addConstraints(cons);
         showMessages();
-    }
-
-    public boolean allDataFilled(){
-
-        if (firstName.equals("") || lastName.equals("") || username.equals("")
-                || password.equals("") || confirmPassword.equals("") || phoneNumber.equals(""))
-            return false;
-
-        return true;
     }
 
     public void fillDataMessage(){
@@ -183,6 +176,15 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
         return true;
     }
 
+    public boolean allDataFilled(){
+
+        if (firstName.equals("") || lastName.equals("") || username.equals("")
+                || password.equals("") || confirmPassword.equals("") || phoneNumber.equals(""))
+            return false;
+
+        return true;
+    }
+
     public void passwordMatchMessage(){
         String message = "Passwords don't match!";
         System.out.println("Passwords don't match!");
@@ -191,9 +193,9 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
         violationsLabel.setVisible(true);
     }
 
-    public void addConstraints(Set<ConstraintViolation<Object>> cons){
+    public void addConstraints(Set<ConstraintViolation<Owner>> cons){
 
-        for (ConstraintViolation<Object> con : cons) {
+        for (ConstraintViolation<Owner> con : cons) {
             if (con.getPropertyPath().toString().equals("firstname"))
                 firstname_con.add(con.getMessage());
             else if (con.getPropertyPath().toString().equals("lastname"))
@@ -219,8 +221,6 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
     }
 
     public void showMessages(){
-        System.out.println("\n\n\nShow messages:");
-        System.out.println("First Name Violations:");
 
         if(!firstname_con.isEmpty() && (!lastname_con.isEmpty() || !username_con.isEmpty()))
             firstname_con.add("\n");
@@ -233,6 +233,9 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
 
         if(!email_con.isEmpty() && !phone_con.isEmpty())
             email_con.add("\n");
+
+        System.out.println("\n\n\nShow messages:");
+        System.out.println("First Name Violations:");
 
         for (String message : firstname_con) {
             if (!message.isEmpty()) {
@@ -283,8 +286,17 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
         username = usernameField.getText().trim();
         password = passwordField.getText();
         confirmPassword = confirmField.getText();
-        email = emailField.getText();
         phoneNumber = phoneNumberField.getText();
+        email = emailField.getText();
+
+//
+//        firstName = firstNameField.getText().trim();
+//        lastName = lastNameField.getText().trim();
+//        username = usernameField.getText().trim();
+//        password = passwordField.getText();
+//        confirmPassword = confirmField.getText();
+//        email = emailField.getText();
+//        phoneNumber = phoneNumberField.getText();
     }
 
     public void showConsPane1(MouseEvent mouseEvent) { consVbox1.setVisible(true); }
@@ -294,4 +306,8 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
     public void showConsPane2(MouseEvent mouseEvent) { consVbox2.setVisible(true); }
 
     public void hideConsPane2(MouseEvent mouseEvent) { consVbox2.setVisible(false); }
+
+
 }
+
+
