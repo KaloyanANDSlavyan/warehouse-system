@@ -2,9 +2,11 @@ package system.application.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import system.backend.WSystem;
 import system.backend.others.Indicator;
@@ -38,7 +40,16 @@ public class EditUserInfoController extends UserController {
     private TextField phoneNumberField;
     @FXML
     private Button exitButton;
-
+    @FXML
+    private Hyperlink why1;
+    @FXML
+    private Hyperlink why2;
+    @FXML
+    private VBox consVbox1;
+    @FXML
+    private VBox consVbox2;
+    @FXML
+    private Label violationsLabel;
     private Owner owner;
     private Agent agent;
 
@@ -62,6 +73,22 @@ public class EditUserInfoController extends UserController {
     private List<String> pass_con = new ArrayList<>();
     private List<String> email_con = new ArrayList<>();
     private List<String> phone_con = new ArrayList<>();
+
+    public void setWidthAndHeight(){
+        consVbox1.setMinWidth(Region.USE_COMPUTED_SIZE);
+        consVbox2.setMinWidth(Region.USE_COMPUTED_SIZE);
+        consVbox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        consVbox2.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        consVbox1.setMaxWidth(Region.USE_PREF_SIZE);
+        consVbox2.setMaxWidth(Region.USE_PREF_SIZE);
+
+        consVbox1.setMinHeight(Region.USE_COMPUTED_SIZE);
+        consVbox2.setMinHeight(Region.USE_COMPUTED_SIZE);
+        consVbox1.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        consVbox2.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        consVbox1.setMaxHeight(Region.USE_PREF_SIZE);
+        consVbox2.setMaxHeight(Region.USE_PREF_SIZE);
+    }
 
     public void closeStage(ActionEvent event){
         exitButton = (Button) event.getSource();
@@ -90,13 +117,35 @@ public class EditUserInfoController extends UserController {
         phoneNumberField.setText(agent.getPhoneNumber());
 
     }
+    public void fillConsBox1(String message) {
+
+        Label consLabel = new Label();
+        consLabel.setText(message);
+        consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
+        consVbox1.getChildren().add(consLabel);
+        System.out.println(message);
+        why1.setVisible(true);
+    }
+    public void fillConsBox2(String message) {
+        Label consLabel = new Label();
+        consLabel.setText(message);
+        consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
+        consVbox2.getChildren().add(consLabel);
+        System.out.println(message);
+        why2.setVisible(true);
+    }
 
     public void handleDoneButton(ActionEvent event) {
+
         System.out.println("Edit complete.");
+        violationsLabel.setVisible(false);
+        consVbox1.getChildren().clear();
+        consVbox2.getChildren().clear();
 
         WSystem wSystem = WSystem.getInstance();
 
         getNewData();
+
 
         if(owner != null){
             OwnerValidation ownerValidation = wSystem.getOwnerValidation();
@@ -109,11 +158,14 @@ public class EditUserInfoController extends UserController {
             Set<ConstraintViolation<Owner>> cons = ownerValidation.validate(owner);
             ownerValidation.setIgnoreThisID(null);
 
-            if(cons.isEmpty())
+            if(cons.isEmpty()) {
                 WSystem.getInstance().getOwnerDAO().update(owner);
+                closeStage(event);
+            }
             else {
                 setOldOwnerData();
-
+                setWidthAndHeight();
+                violationsLabel.setVisible(true);
                 System.out.println("Couldn't update");
                 addOwnerConstraints(cons);
                 showMessages();
@@ -137,7 +189,8 @@ public class EditUserInfoController extends UserController {
                 WSystem.getInstance().getAgentDAO().update(agent);
             else {
                 setOldAgentData();
-
+                setWidthAndHeight();
+                violationsLabel.setVisible(true);
                 System.out.println("Couldn't update");
                 addAgentConstraints(cons);
                 showMessages();
@@ -146,7 +199,7 @@ public class EditUserInfoController extends UserController {
             static_lastName.setText(agent.getLastname());
             static_phoneNumber.setText(agent.getPhoneNumber());
         }
-        closeStage(event);
+
     }
 
     public void handleExitButton(ActionEvent event) {
@@ -288,7 +341,7 @@ public class EditUserInfoController extends UserController {
 
         for (String message : firstname_con) {
             if (!message.isEmpty()) {
-                //fillConsBox1(message);
+                fillConsBox1(message);
                 System.out.println(message);
             }
         }
@@ -296,7 +349,7 @@ public class EditUserInfoController extends UserController {
         System.out.println("Last Name Violations:");
         for (String message : lastname_con) {
             if (!message.isEmpty()) {
-                //fillConsBox1(message);
+                fillConsBox1(message);
                 System.out.println(message);
             }
         }
@@ -304,7 +357,7 @@ public class EditUserInfoController extends UserController {
         System.out.println("Username Violations:");
         for (String message : username_con) {
             if (!message.isEmpty()) {
-                //fillConsBox1(message);
+                fillConsBox1(message);
                 System.out.println(message);
             }
         }
@@ -312,7 +365,7 @@ public class EditUserInfoController extends UserController {
         System.out.println("Password Violations:");
         for (String message : pass_con) {
             if (!message.isEmpty()) {
-                //fillConsBox2(message);
+                fillConsBox2(message);
                 System.out.println(message);
             }
         }
@@ -320,7 +373,7 @@ public class EditUserInfoController extends UserController {
         System.out.println("Email Violations:");
         for (String message : email_con) {
             if (!message.isEmpty()) {
-                //fillConsBox2(message);
+                fillConsBox2(message);
                 System.out.println(message);
             }
         }
@@ -328,10 +381,18 @@ public class EditUserInfoController extends UserController {
         System.out.println("Phone Violations:");
         for (String message : phone_con) {
             if (!message.isEmpty()) {
-                //fillConsBox2(message);
+                fillConsBox2(message);
                 System.out.println(message);
             }
         }
         System.out.println("\n");
     }
+
+    public void showConsPane2(MouseEvent mouseEvent) { consVbox2.setVisible(true); }
+
+    public void hideConsPane2(MouseEvent mouseEvent) { consVbox2.setVisible(false); }
+
+    public void showConsPane1(MouseEvent mouseEvent) { consVbox1.setVisible(true); }
+
+    public void hideConsPane1(MouseEvent mouseEvent) { consVbox1.setVisible(false); }
 }

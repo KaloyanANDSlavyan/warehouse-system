@@ -24,7 +24,7 @@
                <font>
                   <Font name="Gulim" size="13.0" />
                </font></PasswordField>
-            <Button fx:id="loginButton" layoutX="130.0" layoutY="320.0" mnemonicParsing="false" onAction="#setOnAction" prefHeight="25.0" prefWidth="200.0" styleClass="loginButton" stylesheets="@../styling/loginScreenCSS.css" text="Login">
+            <Button fx:id="loginButton" defaultButton="true" layoutX="130.0" layoutY="320.0" mnemonicParsing="false" onAction="#setOnAction" prefHeight="25.0" prefWidth="200.0" styleClass="loginButton" stylesheets="@../styling/loginScreenCSS.css" text="Login">
                <font>
                   <Font name="Gulim" size="16.0" />
                </font></Button>

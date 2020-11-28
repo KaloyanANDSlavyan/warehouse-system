@@ -61,7 +61,7 @@
 -fx-background-color: #25274D;
 }
 .shadow{
--fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);
+-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 3, 0.5, 0.0, 0.0);
 }
 .noshadow{
 -fx-effect: none;
@@ -109,4 +109,16 @@
 }
 .logoutButton:hover{
 -fx-background-image: url("images/logoutButtonHover.png");
+}
+.profilePane{
+-fx-background-color: #25274D;
+-fx-background-radius: 50px;
+-fx-border-radius: 50px;
+-fx-border-color: #14152b;
+-fx-border-width: 1px;
+}
+.registerButton{
+-fx-background-color: #2E9CCA;
+-fx-background-radius: 50px;
+-fx-text-fill: black;
 }

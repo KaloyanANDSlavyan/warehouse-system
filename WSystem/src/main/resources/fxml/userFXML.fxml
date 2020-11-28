@@ -12,7 +12,7 @@
    <children>
       <Button fx:id="editButton" layoutX="11.0" layoutY="152.0" mnemonicParsing="false" onAction="#handleEditButton" prefHeight="51.0" prefWidth="36.0" styleClass="editButton" stylesheets="@../styling/adminPanelCSS.css" />
       <Button fx:id="deleteButton" layoutX="203.0" layoutY="156.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="43.0" prefWidth="36.0" styleClass="deleteButton" stylesheets="@../styling/adminPanelCSS.css" />
-      <ImageView fitHeight="69.0" fitWidth="68.0" layoutX="91.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imageView" fitHeight="69.0" fitWidth="68.0" layoutX="91.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../styling/images/owner.png" />
          </image>

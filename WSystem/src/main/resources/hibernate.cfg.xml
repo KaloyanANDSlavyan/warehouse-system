@@ -7,6 +7,6 @@
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.url">jdbc:mysql://localhost:3306/wsystem_db?createDatabaseIfNotExist=true</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">root</property>
+        <property name="connection.password">Slavqn_61</property>
     </session-factory>
 </hibernate-configuration>

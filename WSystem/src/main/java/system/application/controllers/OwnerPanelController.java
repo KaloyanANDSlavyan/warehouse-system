@@ -31,8 +31,8 @@ public class OwnerPanelController  {
     @FXML
     private Button profileButton = null;
     @FXML
-    protected Button reportsButton = new Button();
-    protected static Button reportsButton_static = new Button();
+    protected Button warehousesButton = new Button();
+    protected static Button warehousesButton_static = new Button();
     @FXML
     private Label firstNameLabel = null;
     @FXML
@@ -44,9 +44,22 @@ public class OwnerPanelController  {
 
 
     public void initialize(){
+        warehousesButton_static = warehousesButton;
+
         OwnerDataHolder ownerDataHolder = OwnerDataHolder.getInstance();
         owner = ownerDataHolder.getOwner();
+        warehousesState(owner);
         setFirstNameLabel(owner);
+    }
+
+    public void warehousesState(Owner owner){
+        if (owner.getWarehouses().isEmpty()){
+            warehousesButton_static.setVisible(false);
+            System.out.println("This owner hasn't got warehouses");
+        }else{
+            warehousesButton_static.setVisible(true);
+            System.out.println("This owner has warehouses");
+        }
     }
     public void setFirstNameLabel(Owner owner){     // Sets the firstNameLabel to the first name of the given owner
         firstNameLabel.setText(owner.getFirstname());
@@ -81,8 +94,8 @@ public class OwnerPanelController  {
     }
 
     public void handleButton3Action(ActionEvent event) {
-        System.out.println("You clicked: " + reportsButton.getText());
-
+        System.out.println("You clicked: " + warehousesButton.getText());
+        setLoader("viewWarehousesFXML");
         List<Warehouse> warehouseList = owner.getWarehouses();
         if(!warehouseList.isEmpty()) {
             System.out.println("The owner has warehouses!");
@@ -97,6 +110,12 @@ public class OwnerPanelController  {
         }
         else System.out.println("The owner doesn't have warehouses!");
     }
+
+    public void handleButton4Action(ActionEvent event) {
+        System.out.println("You clicked: " + profileButton.getText());
+        setLoader("viewProfileFXML");
+    }
+
     public void closeStage(ActionEvent event){
         logoutButton = (Button) event.getSource();
         Stage stage = (Stage) logoutButton.getScene().getWindow();
@@ -125,7 +144,4 @@ public class OwnerPanelController  {
         loginScreenStage.show();
     }
 
-    public void handleProfileButton(ActionEvent event) {
-        System.out.println("You clicked: " + profileButton.getText());
-    }
 }

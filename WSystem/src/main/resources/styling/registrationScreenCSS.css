@@ -59,3 +59,30 @@ cursor: hand;
 -fx-background-color: none;
 -fx-cursor: hand;
 }
+.listView{
+-fx-background-color: none;
+-fx-border-color: #202245;
+-fx-border-radius: 10px;
+-fx-border-width: 1.5px;
+-fx-background-radius: 10px;
+}
+.listView .list-cell{
+-fx-background-color: none;
+-fx-background-radius: 10px;
+}
+.listView .list-cell:selected{
+-fx-background-color: #202245;
+}
+.listView .list-cell:hover{
+-fx-text-fill: #E1DFDF;
+}
+.comboBox{
+-fx-background-color: none;
+-fx-border-color: #202245;
+-fx-border-radius: 10px;
+-fx-border-width: 1.5px;
+-fx-background-radius: 10px;
+}
+.comboBox .arrow{
+-fx-background-color: #202245;
+}
