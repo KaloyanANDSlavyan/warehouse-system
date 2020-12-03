@@ -19,7 +19,7 @@ import system.backend.profiles.Owner;
 
 import java.io.IOException;
 
-public class AdminPanelController {
+public class AdminPanelController extends AbstractController {
     @FXML
     private AnchorPane anchorPane = null;
     @FXML
@@ -115,6 +115,10 @@ public class AdminPanelController {
     public void handleLogoutButton(ActionEvent event) {
         closeStage(event);
        loadStage("/fxml/loginScreenFXML.fxml");
+    }
+
+    public AnchorPane getLoaderPane() {
+        return loaderPane;
     }
 }
 

@@ -3,15 +3,13 @@ package system.backend.profiles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import system.backend.constraints.MyUnique;
-import system.backend.validators.groups.OnSaveChecks;
-import system.backend.validators.groups.OnUpdateChecks;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-abstract public class AbstractProfile implements Profile {
+abstract public class AbstractMainProfile implements MainProfile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected long ID;
@@ -61,11 +59,11 @@ abstract public class AbstractProfile implements Profile {
     @Transient
     protected Logger LOGGER;
 
-    AbstractProfile(){
+    AbstractMainProfile(){
         LOGGER = LogManager.getLogger();
     }
 
-    AbstractProfile(String firstname, String lastname, String username, String password){
+    AbstractMainProfile(String firstname, String lastname, String username, String password){
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;

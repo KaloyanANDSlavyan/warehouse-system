@@ -13,17 +13,21 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import system.application.others.DataRetriever;
+import system.application.others.MessageService;
 import system.backend.WSystem;
+import system.backend.dao.DAO;
+import system.backend.dao.MainDAO;
 import system.backend.dataholders.OwnerDataHolder;
 import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.profiles.Owner;
+import system.backend.profiles.ProfileManager;
+import system.backend.services.ValidationService;
 
 import javax.validation.ConstraintViolation;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class CreateWarehouseController extends OwnerPanelController {
     @FXML
@@ -64,6 +68,22 @@ public class CreateWarehouseController extends OwnerPanelController {
     private List<String> size_con = new ArrayList<>();
     private List<String> category_con = new ArrayList<>();
     private List<String> temperature_con = new ArrayList<>();
+
+    private String[] keys = {"size", "temperature"};
+
+    private Map<String, Map<String, String>> data = new HashMap<>();
+    private Map<String, Map<String, String>> oldData = new HashMap<>();
+    private Map<String, Set<String>> cons = new LinkedHashMap<>();
+
+    private MessageService messageService = MessageService.getInstance();
+
+    private double oldSize;
+    private double oldtemperature;
+    private String oldCategory;
+    private Set<StockType> oldStockTypes;
+
+    DataRetriever dataRetriever = DataRetriever.getInstance();
+    ValidationService validationService = ValidationService.getInstance();
 
     public void initialize(){
         comboBoxItems.addAll("Food Industry", "Tech Industry", "Military");    // Adds items to the list, which will contain different warehouse types
@@ -118,7 +138,7 @@ public class CreateWarehouseController extends OwnerPanelController {
         }
     }
 
-    public void fillConsBox(String message) {
+    public void fillConsBox1(String message) {
         Label consLabel = new Label();
         consLabel.setText(message);
         consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 11px");
@@ -127,57 +147,55 @@ public class CreateWarehouseController extends OwnerPanelController {
         Hbox.setVisible(true);
     }
 
+    public void addConstraints(Set<ConstraintViolation<Object>> cons){
+        for (ConstraintViolation<Object> con : cons) {
+            if (con.getPropertyPath().toString().equals("size"))
+                size_con.add(con.getMessage());
+            else if (con.getPropertyPath().toString().equals("temperature"))
+                temperature_con.add(con.getMessage());
+        }
+    }
+
+    public void showMessages(){
+        System.out.println("\n\n\nShow messages:");
+        System.out.println("Size Violations:");
+
+        for (String message : size_con) {
+            if (!message.isEmpty()) {
+                fillConsBox1(message);
+            }
+        }
+        System.out.println("\n");
+        System.out.println("Temperature Violations:");
+        for (String message : temperature_con) {
+            if (!message.isEmpty()) {
+                fillConsBox1(message);
+            }
+        }
+    }
+
     public void createButtonAction(ActionEvent event) {
         System.out.println("Create Button Clicked.");
         consVbox.getChildren().clear();
         successLabel.setVisible(false);
         Hbox.setVisible(false);
-        String category = typeBox.getSelectionModel().getSelectedItem();
 
-        stockType = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
-        for (String o : stockType) {
-            System.out.println("o = " + o);
-        }
-        double size;
-        double temperature;
+        data.clear();
+        cons.clear();
 
-        if (sizeField.getText().isEmpty() || temperatureField.getText().isEmpty())
+        dataRetriever.getWarehouseDataFromController(this, data);
+
+        if (!validationService.allDataFilled(data.get("data")))
             System.out.println("Please fill all of the required data!");
         else {
-            if (stockType.isEmpty())
+            if (!validationService.allDataFilled(data.get("stocktypes")))
                 System.out.println("Please select stock types!");
             else {
-                size = Double.parseDouble(sizeField.getText());
-                temperature = Double.parseDouble(temperatureField.getText());
-                Set<ConstraintViolation<Warehouse>> cons = owner.createWarehouse(category, size, temperature, stockType);
-
-                size_con.clear();
-                temperature_con.clear();
+                cons = owner.createWarehouse(data);
 
                 if (!cons.isEmpty()) {
-                    for (ConstraintViolation<Warehouse> con : cons) {
-                        if (con.getPropertyPath().toString().equals("size"))
-                            size_con.add(con.getMessage());
-                        else if (con.getPropertyPath().toString().equals("temperature"))
-                            temperature_con.add(con.getMessage());
-                    }
-                    System.out.println("\n\n\nShow messages:");
-                    System.out.println("Size Violations:");
-
-                    for (String message : size_con) {
-                        if (!message.isEmpty()) {
-                            System.out.println(message);
-                            fillConsBox(message);
-                        }
-                    }
-                    System.out.println("\n");
-                    System.out.println("Temperature Violations:");
-                    for (String message : temperature_con) {
-                        if (!message.isEmpty()) {
-                            System.out.println(message);
-                            fillConsBox(message);
-                        }
-                    }
+                    messageService.showMessages(this, cons, keys);
+                    System.out.println("Yes cons is not emprty");
                 }else{      // Executes when cons.IsEmpty() => true
                     System.out.println("Warehouse created");
                     warehousesState(owner);
@@ -187,6 +205,7 @@ public class CreateWarehouseController extends OwnerPanelController {
             }
         }
     }
+
     public void closeStage(ActionEvent event){
         exitButton = (Button) event.getSource();
         Stage stage = (Stage) exitButton.getScene().getWindow();
@@ -209,25 +228,82 @@ public class CreateWarehouseController extends OwnerPanelController {
     }
 
     public void doneButtonAction(ActionEvent event) {   // HANDLES EDIT WAREHOUSE
-        double size = wh.getSize();
-        System.out.println("Size: " + size);
+
+        size_con.clear();
+        temperature_con.clear();
+
+        oldSize = wh.getSize();
+        oldtemperature = wh.getTemperature();
+        oldCategory = wh.getCategory();
+        oldStockTypes = wh.getStockTypes();
+
         String category = typeBox.getSelectionModel().getSelectedItem();
         System.out.println("Category: " + category);
         stockType = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
         for (String o : stockType) {
             System.out.println("o = " + o);
         }
-        double temperature = wh.getTemperature();
-        System.out.println("Temperature: " + temperature);
+        double size;
+        double temperature;
+
+        if (sizeField.getText().isEmpty() || temperatureField.getText().isEmpty())
+            System.out.println("Please fill all of the required data!");
+        else {
+            if (!stockType.isEmpty()) {
+                Set<StockType> stockTypes = new HashSet<>();
+                for (String s : stockType) {
+                    stockTypes.add(wSystem.findStockTypeBy1Value(s));
+                    wh.setStockTypes(stockTypes);
+                }
+            }
+            size = Double.parseDouble(sizeField.getText());
+            temperature = Double.parseDouble(temperatureField.getText());
+
+            wh.setSize(size);
+            wh.setTemperature(temperature);
+            wh.setCategory(category);
+
+            DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
+            Set<ConstraintViolation<Object>> cons = validationService.oldValidate(wh);
+
+            if (cons.isEmpty()) {
+                warehouseDAO.update(wh);
+                System.out.println("Warehouse successfully updated!");
+            } else {
+                wh.setCategory(oldCategory);
+                wh.setSize(oldSize);
+                wh.setStockTypes(oldStockTypes);
+                wh.setTemperature(oldtemperature);
+                System.out.println("EI kulvach");
+                addConstraints(cons);
+                showMessages();
+            }
+        }
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/userFXML.fxml"));
             Parent root = loader.load();
 
             UserController userController = loader.getController();
-            userController.transferMessage(category);   // transfer data between two controllers
-        }catch (IOException e){
+            userController.transferMessage(wh.getCategory());   // transfer data between two controllers
+        } catch (IOException e) {
             e.printStackTrace();
         }
         closeStage(event);
+    }
+
+    public ComboBox<String> getTypeBox() {
+        return typeBox;
+    }
+
+    public ListView<String> getStockTypeView() {
+        return stockTypeView;
+    }
+
+    public TextField getSizeField() {
+        return sizeField;
+    }
+
+    public TextField getTemperatureField() {
+        return temperatureField;
     }
 }

@@ -14,12 +14,13 @@ import javafx.stage.StageStyle;
 import system.backend.WSystem;
 import system.backend.dataholders.OwnerDataHolder;
 import system.backend.others.Warehouse;
+import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
 
 import java.io.IOException;
 import java.util.List;
 
-public class OwnerPanelController  {
+public class OwnerPanelController extends AbstractController {
     @FXML
     private AnchorPane anchorPane = null;
     @FXML
@@ -91,6 +92,35 @@ public class OwnerPanelController  {
 
     public void handleButton2Action(ActionEvent event) {
         System.out.println("You clicked: " + assignAgentsButton.getText());
+
+        if(wSystem.hasAgentProfiles()) {
+            System.out.println("The system has agent profiles!");
+            System.out.println("Showing agents here:");
+            for (Agent agent : wSystem.getAgents()) {
+                System.out.println("\nAgent:");
+                System.out.println(agent.getID());
+                System.out.println(agent.getFirstname());
+                System.out.println(agent.getLastname());
+                System.out.println(agent.getUsername());
+                System.out.println(agent.getPassword());
+                System.out.println(agent.getEmailAddress());
+                System.out.println(agent.getPhoneNumber());
+            }
+            List<Warehouse> warehouseList = owner.getWarehouses();
+            if(!warehouseList.isEmpty()) {
+                System.out.println("The owner has warehouses!");
+                for(Warehouse wh : warehouseList){
+                    System.out.println("Warehouse " + wh.getID());
+                    System.out.println("Category: " + wh.getCategory());
+                    System.out.println("Size: " + wh.getSize());
+                    System.out.println("Temperature: " + wh.getTemperature());
+                    System.out.println("Stock types: " + wh.getStockTypes());
+                    System.out.println();
+                }
+            }
+            else System.out.println("The owner doesn't have warehouses!");
+        }
+        else System.out.println("The system doesn't have agent profiles!");
     }
 
     public void handleButton3Action(ActionEvent event) {

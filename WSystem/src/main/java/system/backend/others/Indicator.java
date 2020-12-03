@@ -6,9 +6,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 
 public class Indicator {
     private static Indicator indicator;
-    private ValidationIndicator validationIndicator;
+    private Class<?> validationIndicator;
 
-    Indicator(){
+    public Indicator(){
 
     }
 
@@ -18,11 +18,11 @@ public class Indicator {
         return indicator;
     }
 
-    public ValidationIndicator getValidationIndicator() {
+    public Class<?> getValidationIndicator() {
         return validationIndicator;
     }
 
-    public void setValidationIndicator(ValidationIndicator validationIndicator) {
+    public void setValidationIndicator(Class<?> validationIndicator) {
         this.validationIndicator = validationIndicator;
     }
 }

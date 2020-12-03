@@ -6,25 +6,18 @@ import system.backend.constraints.MyUnique;
 import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.services.ValidationService;
-import system.backend.services.WarehouseValidation;
-import system.backend.validators.groups.OnSaveChecks;
-import system.backend.validators.groups.OnUpdateChecks;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.ConstraintViolation;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
-public class Owner extends AbstractProfile {
+public class Owner extends AbstractMainProfile implements SecondaryProfile {
     @Size(max = 50)
     @Email(message = "Invalid email address")
     @MyUnique(type = Owner.class, column = "emailAddress")
@@ -42,23 +35,52 @@ public class Owner extends AbstractProfile {
         super();
     }
 
-    public Set<ConstraintViolation<Warehouse>> createWarehouse(String category, double size,
-                                                            double temperature, List<String> stockType){
+//    public Set<ConstraintViolation<Object>> createWarehouse(String category, double size,
+//                                                            double temperature, List<String> stockType){
+//        WSystem wSystem = WSystem.getInstance();
+//
+//        Set<StockType> stockTypes = new HashSet<>();
+//        for(String s : stockType) {
+//            stockTypes.add(wSystem.findStockTypeBy1Value(s));
+//        }
+//
+//        Warehouse warehouse = new Warehouse();
+//        warehouse.setCategory(category);
+//        warehouse.setSize(size);
+//        warehouse.setTemperature(temperature);
+//        warehouse.setStockTypes(stockTypes);
+//
+//        ValidationService validationService = ValidationService.getInstance();
+//        Set<ConstraintViolation<Object>> cons = validationService.oldValidate(warehouse);
+//
+//        if(cons.isEmpty()) {
+//            warehouse.setOwner(this);
+//            wSystem.addWarehouseToDatabase(warehouse);
+//        }
+//
+//        return cons;
+//    }
+
+    public Map<String, Set<String>> createWarehouse(Map<String, Map<String, String>> data){
         WSystem wSystem = WSystem.getInstance();
 
-        Set<StockType> stockTypes = new HashSet<>();
-        for(String s : stockType) {
-            stockTypes.add(wSystem.findStockTypeBy1Value(s));
+        Set<StockType> stocks = new HashSet<>();
+
+        Map<String, String> stockTypes = data.get("stocktypes");
+        for(Map.Entry<String, String> entry : stockTypes.entrySet()){
+            stocks.add(wSystem.findStockTypeBy1Value(entry.getValue()));
         }
 
-        Warehouse warehouse = new Warehouse();
-        warehouse.setCategory(category);
-        warehouse.setSize(size);
-        warehouse.setTemperature(temperature);
-        warehouse.setStockTypes(stockTypes);
+        Map<String, String> _data = data.get("data");
 
-        WarehouseValidation warehouseValidation = wSystem.getWarehouseValidation();
-        Set<ConstraintViolation<Warehouse>> cons = warehouseValidation.validate(warehouse);
+        Warehouse warehouse = new Warehouse();
+        warehouse.setCategory(_data.get("category"));
+        warehouse.setSize(Double.parseDouble(_data.get("size")));
+        warehouse.setTemperature(Double.parseDouble(_data.get("temperature")));
+        warehouse.setStockTypes(stocks);
+
+        ValidationService validationService = ValidationService.getInstance();
+        Map<String, Set<String>> cons = validationService.validate(warehouse);
 
         if(cons.isEmpty()) {
             warehouse.setOwner(this);

@@ -1,30 +1,27 @@
 package system.application.controllers;
 
-import javafx.application.Platform;
-import javafx.css.PseudoClass;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
+import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import system.application.others.DataRetriever;
+import system.application.others.MessageService;
 import system.backend.WSystem;
-import system.backend.dataholders.OwnerDataHolder;
 import system.backend.profiles.Admin;
 import system.backend.profiles.Owner;
-import system.backend.profiles.Profile;
+import system.backend.profiles.ProfileManager;
 import system.backend.services.ValidationService;
 
-import javax.validation.ConstraintViolation;
-import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class RegisterOwnerController extends AdminPanelController implements Initializable {
@@ -62,22 +59,14 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
     private Hyperlink why2 = null;
     private WSystem wSystem = WSystem.getInstance();
 
-    private Owner owner;
+    @FXML
+    private AnchorPane loaderPane;
 
-    private String firstName;
-    private String lastName;
-    private String username;
-    private String password;
-    private String confirmPassword;
-    private String email;
-    private String phoneNumber;
-
-    private List<String> firstname_con = new ArrayList<>();
-    private List<String> lastname_con = new ArrayList<>();
-    private List<String> username_con = new ArrayList<>();
-    private List<String> pass_con = new ArrayList<>();
-    private List<String> email_con = new ArrayList<>();
-    private List<String> phone_con = new ArrayList<>();
+    private Map<String, String> data = new HashMap<>();
+    private Map<String, Set<String>> cons = new LinkedHashMap<>();
+    private MessageService messageService = MessageService.getInstance();
+    private String[] keys = {"firstname", "lastname", "username",
+            "password", "emailAddress", "phoneNumber"};
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -122,28 +111,24 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
         why2.setVisible(false);
 
         System.out.println("Register Button Clicked.");
-        getData();
 
-        if(allDataFilled()) {
-            if (passwordMatch())
+        DataRetriever dataRetriever = DataRetriever.getInstance();
+        dataRetriever.getRegisterData(this, data);
+
+        ValidationService validationService = ValidationService.getInstance();
+
+        if(validationService.allDataFilled(data)) {
+            if (validationService.passwordsMatch(data.get("password"), data.get("confirmPassword")))
                 registerOrViolate();
-            else passwordMatchMessage();
-        } else fillDataMessage();
+            else messageService.passwordMatchMessage(this);
+        } else messageService.fillDataMessage(this, data);
     }
 
     public void registerOrViolate(){
+        cons.clear();
 
-        firstname_con.clear();
-        lastname_con.clear();
-        username_con.clear();
-        pass_con.clear();
-        email_con.clear();
-        phone_con.clear();
-
-        Admin admin = (Admin) wSystem.getAdmin();
-
-        Set<ConstraintViolation<Owner>> cons =
-                admin.createOwner(firstName, lastName, username, password, email, phoneNumber);
+        ProfileManager<Owner> profileManager = new ProfileManager<>();
+        cons = profileManager.createProfile(Owner.class, data);
 
         if (cons.isEmpty()) {
             violationsLabel.setVisible(false);
@@ -152,151 +137,8 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
         } else {
             violationsLabel.setVisible(true);
             successLabel.setVisible(false);
+            messageService.showMessages(this, cons, keys);
         }
-
-        addConstraints(cons);
-        showMessages();
-    }
-
-    public void fillDataMessage(){
-        successLabel.setVisible(false);
-        violationsLabel.setVisible(true);
-        String message = "Please fill all of the required data!";
-
-        if(firstName.equals("") || lastName.equals("") || username.equals(""))
-            fillConsBox1(message);
-        if(password.equals("") || confirmPassword.equals("") || phoneNumber.equals(""))
-            fillConsBox2(message);
-    }
-
-    public boolean passwordMatch(){
-        if (!password.equals(confirmPassword))
-            return false;
-
-        return true;
-    }
-
-    public boolean allDataFilled(){
-
-        if (firstName.equals("") || lastName.equals("") || username.equals("")
-                || password.equals("") || confirmPassword.equals("") || phoneNumber.equals(""))
-            return false;
-
-        return true;
-    }
-
-    public void passwordMatchMessage(){
-        String message = "Passwords don't match!";
-        System.out.println("Passwords don't match!");
-        fillConsBox2(message);
-        successLabel.setVisible(false);
-        violationsLabel.setVisible(true);
-    }
-
-    public void addConstraints(Set<ConstraintViolation<Owner>> cons){
-
-        for (ConstraintViolation<Owner> con : cons) {
-            if (con.getPropertyPath().toString().equals("firstname"))
-                firstname_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("lastname"))
-                lastname_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("username")) {
-                if (con.getMessage().equals(" is already taken")) {
-                    username_con.add("Username" + con.getMessage());
-                } else username_con.add(con.getMessage());
-            }
-            else if (con.getPropertyPath().toString().equals("password"))
-                pass_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("emailAddress")) {
-                if (con.getMessage().equals(" is already taken"))
-                    email_con.add("Email address" + con.getMessage());
-                else email_con.add(con.getMessage());
-            }
-            else if (con.getPropertyPath().toString().equals("phoneNumber")) {
-                if (con.getMessage().equals(" is already taken"))
-                    phone_con.add("Phone number" + con.getMessage());
-                else phone_con.add(con.getMessage());
-            }
-        }
-    }
-
-    public void showMessages(){
-
-        if(!firstname_con.isEmpty() && (!lastname_con.isEmpty() || !username_con.isEmpty()))
-            firstname_con.add("\n");
-
-        if(!lastname_con.isEmpty() && !username_con.isEmpty())
-            lastname_con.add("\n");
-
-        if(!pass_con.isEmpty() && (!email_con.isEmpty() || !phone_con.isEmpty()))
-            pass_con.add("\n");
-
-        if(!email_con.isEmpty() && !phone_con.isEmpty())
-            email_con.add("\n");
-
-        System.out.println("\n\n\nShow messages:");
-        System.out.println("First Name Violations:");
-
-        for (String message : firstname_con) {
-            if (!message.isEmpty()) {
-                fillConsBox1(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Last Name Violations:");
-        for (String message : lastname_con) {
-            if (!message.isEmpty()) {
-                fillConsBox1(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Username Violations:");
-        for (String message : username_con) {
-            if (!message.isEmpty()) {
-                fillConsBox1(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Password Violations:");
-        for (String message : pass_con) {
-            if (!message.isEmpty()) {
-                fillConsBox2(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Email Violations:");
-        for (String message : email_con) {
-            if (!message.isEmpty()) {
-                fillConsBox2(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Phone Violations:");
-        for (String message : phone_con) {
-            if (!message.isEmpty()) {
-                fillConsBox2(message);
-            }
-        }
-        System.out.println("\n");
-    }
-
-    public void getData(){
-        firstName = firstNameField.getText().trim();
-        lastName = lastNameField.getText().trim();
-        username = usernameField.getText().trim();
-        password = passwordField.getText();
-        confirmPassword = confirmField.getText();
-        phoneNumber = phoneNumberField.getText();
-        email = emailField.getText();
-
-//
-//        firstName = firstNameField.getText().trim();
-//        lastName = lastNameField.getText().trim();
-//        username = usernameField.getText().trim();
-//        password = passwordField.getText();
-//        confirmPassword = confirmField.getText();
-//        email = emailField.getText();
-//        phoneNumber = phoneNumberField.getText();
     }
 
     public void showConsPane1(MouseEvent mouseEvent) { consVbox1.setVisible(true); }
@@ -307,7 +149,50 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
 
     public void hideConsPane2(MouseEvent mouseEvent) { consVbox2.setVisible(false); }
 
+    @Override
+    public Label getSuccessLabel() {
+        return successLabel;
+    }
 
+    @Override
+    public Label getViolationsLabel() {
+        return violationsLabel;
+    }
+
+    @Override
+    public TextField getUsernameField() {
+        return usernameField;
+    }
+
+    @Override
+    public TextField getFirstNameField() {
+        return firstNameField;
+    }
+
+    @Override
+    public TextField getLastNameField() {
+        return lastNameField;
+    }
+
+    @Override
+    public PasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    @Override
+    public PasswordField getConfirmField() {
+        return confirmField;
+    }
+
+    @Override
+    public TextField getEmailField() {
+        return emailField;
+    }
+
+    @Override
+    public TextField getPhoneNumberField() {
+        return phoneNumberField;
+    }
 }
 
 

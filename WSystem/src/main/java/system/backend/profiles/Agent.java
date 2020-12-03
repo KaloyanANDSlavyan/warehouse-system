@@ -1,18 +1,14 @@
 package system.backend.profiles;
 
 import system.backend.constraints.MyUnique;
-import system.backend.validators.groups.OnSaveChecks;
-import system.backend.validators.groups.OnUpdateChecks;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @Entity
-public class Agent extends AbstractProfile {
+public class Agent extends AbstractMainProfile implements SecondaryProfile {
     @Size(max = 50)
     @Email(message = "Invalid email address")
     @MyUnique(type = Agent.class, column = "emailAddress")

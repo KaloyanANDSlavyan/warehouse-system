@@ -1,13 +1,11 @@
 package system;
 
 import org.junit.Test;
-import system.backend.dao.OwnerDAO;
 import system.backend.profiles.Owner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 public class Generic<T> {

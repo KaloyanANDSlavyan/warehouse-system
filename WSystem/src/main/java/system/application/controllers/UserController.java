@@ -14,8 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import system.backend.WSystem;
-import system.backend.dao.AgentDAO;
-import system.backend.dao.OwnerDAO;
+import system.backend.dao.DAO;
+import system.backend.dao.MainDAO;
 import system.backend.dataholders.OwnerDataHolder;
 import system.backend.others.Warehouse;
 import system.backend.profiles.Agent;
@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UserController implements Initializable {
+public class UserController extends AbstractController implements Initializable {
     @FXML
     public Label firstNameLabel;
     public static Label static_firstName;
@@ -83,16 +83,21 @@ public class UserController implements Initializable {
     public void handleDeleteButton(ActionEvent event) {
         System.out.println("Delete button clicked");
         WSystem wSystem = WSystem.getInstance();
-        AgentDAO agentDAO = wSystem.getAgentDAO();
-        OwnerDAO ownerDAO = wSystem.getOwnerDAO();
 
-        if(this.owner == null) {
+        DAO<Agent, String> agentDAO = new MainDAO<>();
+        DAO<Owner, String> ownerDAO = new MainDAO<>();
+        DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
+
+        if(this.owner != null) {
+            ownerDAO.deleteByID(Owner.class, this.owner.getID());
+            anchorPane.setVisible(false);
+        }
+        else if(this.agent != null){
             agentDAO.deleteByID(Agent.class, this.agent.getID());
             anchorPane.setVisible(false);
-
-        }
-        else {
-            ownerDAO.deleteByID(Owner.class, this.owner.getID());
+        } else{
+            wh.getOwner().getWarehouses().remove(wh);
+            warehouseDAO.deleteByID(Warehouse.class, this.wh.getID());
             anchorPane.setVisible(false);
         }
 
@@ -136,8 +141,9 @@ public class UserController implements Initializable {
         EditUserInfoController editUserInfoController = loader.getController();
         if (this.owner == null)
         editUserInfoController.setDataForAgent(agent);
-        else
+        else {
             editUserInfoController.setDataForOwner(owner);
+        }
     }
 
 

@@ -1,7 +1,10 @@
-[INFO ] 2020-11-28 18:52:52.494 [Thread-2] Configuration - Successfully finished creating the database!
-[INFO ] 2020-11-28 18:52:54.638 [Thread-2] Configuration - Successfully connected to my-persistence-unit
-[INFO ] 2020-11-28 18:52:54.736 [Thread-2] Configuration - Successfully finished creating factory and manager!
-[INFO ] 2020-11-28 18:52:55.828 [Thread-2] Configuration - Successfully finished creating the system!
-[INFO ] 2020-11-28 18:52:55.829 [Thread-2] Configuration - Successfully finished the configuration of the application!
-[INFO ] 2020-11-28 18:53:08.502 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
-[INFO ] 2020-11-28 18:54:01.666 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-12-03 05:29:10.157 [Thread-2] Configuration - Successfully finished creating the database!
+[INFO ] 2020-12-03 05:29:11.509 [Thread-2] Configuration - Successfully connected to my-persistence-unit
+[INFO ] 2020-12-03 05:29:11.599 [Thread-2] Configuration - Successfully finished creating factory and manager!
+[INFO ] 2020-12-03 05:29:11.898 [Thread-2] Configuration - Successfully finished creating the system!
+[INFO ] 2020-12-03 05:29:11.899 [Thread-2] Configuration - Successfully finished the configuration of the application!
+[INFO ] 2020-12-03 05:29:20.907 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-12-03 05:36:03.823 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-12-03 05:36:55.239 [JavaFX Application Thread] AuthorizationService - An exception occurred but handled: No entity found for query
+[INFO ] 2020-12-03 05:36:55.240 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent
+[INFO ] 2020-12-03 05:36:58.689 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent

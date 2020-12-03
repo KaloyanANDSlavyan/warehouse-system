@@ -13,6 +13,7 @@ import system.backend.validators.indicators.ValidationIndicator;
 import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class WSystem {
@@ -22,32 +23,10 @@ public class WSystem {
     private Admin admin;
     private List<Agent> agents;
     private List<Owner> owners;
-    //DAOs
-    private AdminDAO adminDAO;
-    private OwnerDAO ownerDAO;
-    private AgentDAO agentDAO;
-    private WarehouseDAO warehouseDAO;
-    private StockTypeDAO stockTypeDAO;
-    private ProfileDAO<Profile> profileDAO;
-    //Validation Services
-    private OwnerValidation ownerValidation;
-    private AgentValidation agentValidation;
-    private AdminValidation adminValidation;
-    private WarehouseValidation warehouseValidation;
     
     WSystem(){
         // Creating the system
         setLOGGER(LogManager.getLogger());
-        setAdminDAO(new AdminDAO());
-        setOwnerDAO(new OwnerDAO());
-        setAgentDAO(new AgentDAO());
-        setWarehouseDAO(new WarehouseDAO());
-        setProfileDAO(new ProfileDAO<>());
-        setStockTypeDAO(new StockTypeDAO());
-        setOwnerValidation(new OwnerValidation());
-        setAgentValidation(new AgentValidation());
-        setAdminValidation(new AdminValidation());
-        setWarehouseValidation(new WarehouseValidation());
 
         agents = new ArrayList<>();
         owners = new ArrayList<>();
@@ -58,61 +37,40 @@ public class WSystem {
             wsystem = new WSystem();
         return wsystem;
     }
-
-//    public Set<ConstraintViolation<Object>> createProfile(Profile profile){
-//        // Validating profile
-//
-//        Set<ConstraintViolation<Object>> constraints
-//                = alidate(profile);
-//
-//        if (constraints.isEmpty()){
-//            if(profile.getClass().getSimpleName().equals("Admin")) {
-//                setAdmin(profile);
-//            }
-//            else if(profile.getClass().getSimpleName().equals("Owner"))
-//                owners.add((Owner)profile);
-//            else if(profile.getClass().getSimpleName().equals("Agent"))
-//                agents.add((Agent)profile);
-//
-//            profileDAO.save(profile);
-//        }
-//        return constraints;
-//    }
-
     public void createAdmin(String firstName, String lastName,
-                            String username, String pass){
+                            String username, String pass) {
 //        CryptoService cryptoService = CryptoService.getInstance();
 //        pass = cryptoService.encrypt(pass, cryptoService.getKey(), cryptoService.getCipher());
 
-        adminDAO.deleteIfExists();
-        Indicator.getInstance().setValidationIndicator(ValidationIndicator.ADMIN);
+        DAO<Admin, String> adminDAO = new MainDAO<>();
+        Admin admin = adminDAO.findByID(Admin.class, 1L);
 
-        Admin admin = new Admin(firstName, lastName, username, pass);
-        Set<ConstraintViolation<Admin>> constraints = adminValidation.validate(admin);
+        if (admin == null) {
+            admin = new Admin(firstName, lastName, username, pass);
 
-        if(constraints.isEmpty()) {
-            this.admin = admin;
-            adminDAO.save(admin);
-        }
-        else {
-            for (ConstraintViolation<Admin> con : constraints) {
-                LOGGER.error("Admin couldn't be validated");
-                LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+            ValidationService validationService = ValidationService.getInstance();
+            Indicator indicator = new Indicator();
+            indicator.setValidationIndicator(Admin.class);
+            validationService.setIndicator(indicator);
+            Map<String, Set<String>> constraints = validationService.validate(admin);
+
+            if (constraints.isEmpty()) {
+                this.admin = admin;
+                adminDAO.save(admin);
+//            } else {
+//                for (ConstraintViolation<Admin> con : constraints) {
+//                    LOGGER.error("Admin couldn't be validated");
+//                    LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
+//                }
+//            }
             }
         }
     }
 
     public void createStockType(){
+        DAO<StockType, String> stockTypeDAO = new MainDAO<>();
         List<StockType> stockTypeList = stockTypeDAO.selectAll(StockType.class);
-//        if(!stockTypeList.isEmpty()){
-//            stockTypeDAO.deleteAll("StockType");
-//            stockTypeDAO.setAutoIncrement();
-//        }
-//        if(!stockTypeList.isEmpty()){
-//            for(StockType stock : stockTypeList)
-//                stockTypeDAO.delete(stock);
-//            stockTypeDAO.setAutoIncrement();
-//        }
+
         if(stockTypeList.isEmpty()) {
             String[] stockTypes = {"Vegetables", "Fruits", "Seeds",
                     "Computers", "Smartphones", "Chargers",
@@ -134,6 +92,7 @@ public class WSystem {
     }
 
     public boolean hasAgentProfiles(){
+        DAO<Agent, String> agentDAO = new MainDAO<>();
         agents = agentDAO.selectAll(Agent.class);
 
         if(!agents.isEmpty())
@@ -143,6 +102,7 @@ public class WSystem {
     }
 
     public boolean hasOwnerProfiles(){
+        DAO<Owner, String> ownerDAO = new MainDAO<>();
         owners = ownerDAO.selectAll(Owner.class);
 
         if(!owners.isEmpty())
@@ -152,11 +112,19 @@ public class WSystem {
     }
 
     public Owner findOwnerBy2Values(String value1, String value2){
+        DAO<Owner, String> ownerDAO = new MainDAO<>();
         Owner owner = ownerDAO.findBy2Values(Owner.class, "username", "password", value1, value2);
         return owner;
     }
 
+    public Owner findOwnerBy1Value(String value){
+        DAO<Owner, String> ownerDAO = new MainDAO<>();
+        Owner owner = ownerDAO.findBy1Value(Owner.class, "password", value);
+        return owner;
+    }
+
     public StockType findStockTypeBy1Value(String value){
+        DAO<StockType, String> stockTypeDAO = new MainDAO<>();
         StockType stockType = stockTypeDAO.findBy1Value(StockType.class, "type", value);
         return stockType;
     }
@@ -167,10 +135,11 @@ public class WSystem {
     }
 
     public void addWarehouseToDatabase(Warehouse warehouse){
+        DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
         warehouseDAO.save(warehouse);
     }
 
-    public Profile getAdmin() {
+    public MainProfile getAdmin() {
         return admin;
     }
 
@@ -186,87 +155,8 @@ public class WSystem {
         this.LOGGER = LOGGER;
     }
 
-    public void setAdminDAO(AdminDAO adminDAO) {
-        this.adminDAO = adminDAO;
-    }
-
-    public void setOwnerDAO(OwnerDAO ownerDAO) {
-        this.ownerDAO = ownerDAO;
-    }
-
-    public void setAgentDAO(AgentDAO agentDAO) {
-        this.agentDAO = agentDAO;
-    }
-
-    public void setProfileDAO(ProfileDAO<Profile> profileDAO) {
-        this.profileDAO = profileDAO;
-    }
-
-    public OwnerValidation getOwnerValidation() {
-        return ownerValidation;
-    }
-
-    public void setOwnerValidation(OwnerValidation ownerValidation) {
-        this.ownerValidation = ownerValidation;
-    }
-
-    public AgentValidation getAgentValidation() {
-        return agentValidation;
-    }
-
-    public void setAgentValidation(AgentValidation agentValidation) {
-        this.agentValidation = agentValidation;
-    }
-
-    public AdminValidation getAdminValidation() {
-        return adminValidation;
-    }
-
-    public void setAdminValidation(AdminValidation adminValidation) {
-        this.adminValidation = adminValidation;
-    }
-
-    public WarehouseValidation getWarehouseValidation() {
-        return warehouseValidation;
-    }
-
-    public void setWarehouseValidation(WarehouseValidation warehouseValidation) {
-        this.warehouseValidation = warehouseValidation;
-    }
-
-    public StockTypeDAO getStockTypeDAO() {
-        return stockTypeDAO;
-    }
-
-    public void setStockTypeDAO(StockTypeDAO stockTypeDAO) {
-        this.stockTypeDAO = stockTypeDAO;
-    }
-
-    public void setAdmin(Profile admin) {
+    public void setAdmin(MainProfile admin) {
         this.admin = (Admin)admin;
     }
 
-    public AdminDAO getAdminDAO() {
-        return adminDAO;
-    }
-
-    public OwnerDAO getOwnerDAO() {
-        return ownerDAO;
-    }
-
-    public AgentDAO getAgentDAO() {
-        return agentDAO;
-    }
-
-    public ProfileDAO<Profile> getProfileDAO() {
-        return profileDAO;
-    }
-
-    public WarehouseDAO getWarehouseDAO() {
-        return warehouseDAO;
-    }
-
-    public void setWarehouseDAO(WarehouseDAO warehouseDAO) {
-        this.warehouseDAO = warehouseDAO;
-    }
 }

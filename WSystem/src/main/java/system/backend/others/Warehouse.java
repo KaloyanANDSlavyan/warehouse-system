@@ -1,13 +1,17 @@
 package system.backend.others;
 
+import system.backend.WSystem;
+import system.backend.dao.DAO;
+import system.backend.dao.MainDAO;
+import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
+import system.backend.services.ValidationService;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 public class Warehouse {
@@ -33,6 +37,63 @@ public class Warehouse {
     public Warehouse(){
 
     }
+
+//    public static void getWarehouseData(Warehouse warehouse, Map<String, Map<String, String>> data){
+//        data.put("data", new HashMap<>());
+//        data.put("stocktypes", new HashMap<>());
+//
+//        data.get("data").put("size", String.valueOf(warehouse.getSize()));
+//        data.get("data").put("category", warehouse.getCategory());
+//        data.get("data").put("temperature", String.valueOf(warehouse.getTemperature()));
+//
+//        int i = 0;
+//        for (StockType stockType : warehouse.getStockTypes()) {
+//            data.get("stocktypes").put("stocktype " + i, stockType.getType());
+//        }
+//    }
+//
+//    public static void setWarehouseData(Warehouse warehouse, Map<String, Map<String, String>> data){
+//        warehouse.setSize(Double.parseDouble(data.get("data").get("size")));
+//        warehouse.setTemperature(Double.parseDouble(data.get("data").get("temperature")));
+//        warehouse.setCategory(data.get("data").get("category"));
+//
+//        WSystem wSystem = WSystem.getInstance();
+//        Set<Map.Entry<String, String>> stocks = data.get("stocktypes").entrySet();
+//
+//        Set<StockType> stockTypes = new HashSet<>();
+//
+//        for (Map.Entry<String, String> stock : stocks)
+//            stockTypes.add(wSystem.findStockTypeBy1Value(stock.getValue()));
+//
+//        warehouse.setStockTypes(stockTypes);
+//    }
+//
+//    public static Map<String, Set<String>> updateWarehouse(Warehouse warehouse, Map<String, Map<String, String>> data){
+//
+//        warehouse.setSize(Double.parseDouble(data.get("data").get("size")));
+//        warehouse.setTemperature(Double.parseDouble(data.get("data").get("temperature")));
+//        warehouse.setCategory(data.get("data").get("category"));
+//
+//        WSystem wSystem = WSystem.getInstance();
+//        Set<Map.Entry<String, String>> stocks = data.get("stocktypes").entrySet();
+//
+//        Set<StockType> stockTypes = new HashSet<>();
+//
+//        for (Map.Entry<String, String> stock : stocks)
+//            stockTypes.add(wSystem.findStockTypeBy1Value(stock.getValue()));
+//
+//        warehouse.setStockTypes(stockTypes);
+//
+//        ValidationService validationService = ValidationService.getInstance();
+//
+//        Map<String, Set<String>> constraints = validationService.validate(warehouse);
+//
+//        if(constraints.isEmpty()) {
+//            DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
+//            warehouseDAO.update(warehouse);
+//        }
+//        return constraints;
+//    }
 
     public long getID() {
         return ID;

@@ -55,7 +55,7 @@
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="assignAgentsButton" mnemonicParsing="false" onAction="#handleButton2Action" prefHeight="156.0" prefWidth="275.0" styleClass="createAgentButton" text="Assign Agents" textFill="#e1dfdf" visible="false" GridPane.rowIndex="2">
+            <Button fx:id="assignAgentsButton" mnemonicParsing="false" onAction="#handleButton2Action" prefHeight="156.0" prefWidth="275.0" styleClass="createAgentButton" text="Assign Agents" textFill="#e1dfdf" GridPane.rowIndex="2">
                <font>
                   <Font name="Agency FB Bold" size="22.0" />
                </font>
