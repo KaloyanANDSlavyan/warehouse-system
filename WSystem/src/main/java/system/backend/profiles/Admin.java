@@ -3,7 +3,7 @@ package system.backend.profiles;
 import org.apache.logging.log4j.LogManager;
 import system.backend.WSystem;
 import system.backend.others.Indicator;
-import system.backend.validators.indicators.ValidationIndicator;
+
 
 import javax.persistence.*;
 import javax.validation.ConstraintViolation;

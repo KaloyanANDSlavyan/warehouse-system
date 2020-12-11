@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styling/loginMenuCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.LoginScreenController">
+<AnchorPane fx:id="anchorPane" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styling/loginMenuCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.login.LoginScreenController">
    <children>
       <AnchorPane fx:id="topPane" prefHeight="45.0" prefWidth="800.0" styleClass="topPane">
          <children>

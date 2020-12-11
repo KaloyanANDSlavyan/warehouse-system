@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="625.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.ViewWarehousesController">
+<AnchorPane prefHeight="625.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.owner.ViewWarehousesController">
    <children>
       <Label layoutX="219.0" layoutY="5.0" text="VIEW WAREHOUSES" textFill="#2e9cca">
          <font>

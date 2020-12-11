@@ -1,6 +1,7 @@
-[INFO ] 2020-12-11 06:34:38.435 [Thread-2] Configuration - Successfully finished creating the database!
-[INFO ] 2020-12-11 06:34:39.961 [Thread-2] Configuration - Successfully connected to my-persistence-unit
-[INFO ] 2020-12-11 06:34:40.045 [Thread-2] Configuration - Successfully finished creating factory and manager!
-[INFO ] 2020-12-11 06:34:40.243 [Thread-2] Configuration - Successfully finished creating the system!
-[INFO ] 2020-12-11 06:34:40.243 [Thread-2] Configuration - Successfully finished the configuration of the application!
-[INFO ] 2020-12-11 06:34:48.888 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-12-11 19:35:34.099 [Thread-2] Configuration - Successfully finished creating the database!
+[INFO ] 2020-12-11 19:35:57.723 [Thread-2] Configuration - Successfully connected to my-persistence-unit
+[INFO ] 2020-12-11 19:35:58.427 [Thread-2] Configuration - Successfully finished creating factory and manager!
+[INFO ] 2020-12-11 19:36:01.336 [Thread-2] Configuration - Successfully finished creating the system!
+[INFO ] 2020-12-11 19:36:01.337 [Thread-2] Configuration - Successfully finished the configuration of the application!
+[INFO ] 2020-12-11 19:36:15.074 [JavaFX Application Thread] AdminLoginController - Successfully finished the authorization of the admin
+[INFO ] 2020-12-11 19:36:32.371 [JavaFX Application Thread] OwnerLoginController - Successfully finished the authorization of the agent

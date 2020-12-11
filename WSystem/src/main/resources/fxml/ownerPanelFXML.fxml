@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="680.0" prefWidth="1000.0" styleClass="anchorPane" stylesheets="@../styling/adminPanelCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.OwnerPanelController">
+<AnchorPane fx:id="anchorPane" prefHeight="680.0" prefWidth="1000.0" styleClass="anchorPane" stylesheets="@../styling/adminPanelCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.owner.OwnerPanelController">
    <children>
       <AnchorPane prefHeight="54.0" prefWidth="1000.0" styleClass="topPane">
          <children>

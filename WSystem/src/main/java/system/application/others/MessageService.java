@@ -1,9 +1,9 @@
 package system.application.others;
 
 import system.application.controllers.Controller;
-import system.application.controllers.EditUserInfoController;
-import system.application.controllers.RegisterAgentController;
-import system.application.controllers.RegisterOwnerController;
+import system.application.controllers.admin.EditUserInfoController;
+import system.application.controllers.admin.RegisterAgentController;
+import system.application.controllers.admin.RegisterOwnerController;
 
 import java.util.*;
 

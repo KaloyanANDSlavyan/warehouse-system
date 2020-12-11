@@ -12,7 +12,8 @@ public class FxmlLoader {
     public AnchorPane getView(String FXMLName) {
 
         try {
-            URL fileUrl = LoginScreenController.class.getResource("/fxml/" + FXMLName + ".fxml");
+
+            URL fileUrl = Controller.class.getResource("/fxml/" + FXMLName + ".fxml");
             if (fileUrl == null)
                 throw new java.io.FileNotFoundException("FXML file can't be found");
 

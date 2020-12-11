@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="480.0" prefWidth="550.0" styleClass="pane" stylesheets="@../styling/registrationScreenCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.EditUserInfoController">
+<AnchorPane prefHeight="480.0" prefWidth="550.0" styleClass="pane" stylesheets="@../styling/registrationScreenCSS.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="system.application.controllers.admin.EditUserInfoController">
    <children>
       <TextField fx:id="firstNameField" layoutX="175.0" layoutY="82.0" prefHeight="27.0" prefWidth="200.0" promptText="First name" styleClass="editFields" />
       <Button layoutX="176.0" layoutY="404.0" mnemonicParsing="false" onAction="#handleDoneButton" prefHeight="25.0" prefWidth="200.0" styleClass="registerButton" text="Done" />

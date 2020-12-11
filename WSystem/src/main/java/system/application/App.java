@@ -7,14 +7,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import system.application.controllers.LoadingScreenController;
-import system.application.controllers.LoginScreenController;
 import system.backend.Configuration;
-import system.backend.WSystem;
-
-import java.io.IOException;
 
 public class App extends Application
 {
