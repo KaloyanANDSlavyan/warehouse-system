@@ -121,12 +121,3 @@ public class AdminPanelController extends AbstractController {
         return loaderPane;
     }
 }
-
-// WSystem wSystem = WSystem.getInstance()  ->  Get system instance
-// wSystem.hasProfiles()  ->  Returns true, if profiles exist. Otherwise - false
-// wSystem.hasOwnerProfiles()  ->  Return true, if owner profiles exist. Otherwise - false
-// wSystem.hasAgentProfiles()  ->  Return true, if agent profiles exist. Otherwise - false
-
-// wSystem.getOwners()  ->  Returns list of all owners, registered in the system  -->  List<Owner>
-// wSystem.getAgents()  ->  Returns list of all agents, registered in the system  -->  List<Agent>
-// use getters to access values

@@ -9,7 +9,6 @@ import system.backend.profiles.Admin;
 import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
 import system.backend.services.ValidationService;
-import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

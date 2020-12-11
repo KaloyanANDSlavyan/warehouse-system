@@ -80,7 +80,6 @@ public class Configuration {
                     LOGGER.info("Successfully finished the configuration of the application!");
                 } catch (Exception e) {
                     LOGGER.error("An error occurred during the configuration: " + e.getMessage());
-                    e.printStackTrace();
                 }
             }).start();
     }

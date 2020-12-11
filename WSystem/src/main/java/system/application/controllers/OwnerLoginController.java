@@ -16,7 +16,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import system.backend.WSystem;
 import system.backend.dataholders.OwnerDataHolder;
-import system.backend.profiles.Agent;
 import system.backend.profiles.Owner;
 import system.backend.services.AuthorizationService;
 
@@ -76,7 +75,7 @@ public class OwnerLoginController {
 
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
-        AuthorizationService service = AuthorizationService.getInstance();
+        AuthorizationService<Owner> service = new AuthorizationService<>();
         boolean success = service.authorizeLogin(username, password, Owner.class);
         LOGGER.info("Successfully finished the authorization of the agent");
 

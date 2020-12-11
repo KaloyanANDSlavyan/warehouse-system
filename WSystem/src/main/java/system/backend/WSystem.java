@@ -8,7 +8,6 @@ import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.profiles.*;
 import system.backend.services.*;
-import system.backend.validators.indicators.ValidationIndicator;
 
 import javax.validation.ConstraintViolation;
 import java.util.ArrayList;
@@ -37,7 +36,8 @@ public class WSystem {
             wsystem = new WSystem();
         return wsystem;
     }
-    public void createAdmin(String firstName, String lastName,
+
+    public void createAdminTable(String firstName, String lastName,
                             String username, String pass) {
 //        CryptoService cryptoService = CryptoService.getInstance();
 //        pass = cryptoService.encrypt(pass, cryptoService.getKey(), cryptoService.getCipher());
@@ -57,17 +57,18 @@ public class WSystem {
             if (constraints.isEmpty()) {
                 this.admin = admin;
                 adminDAO.save(admin);
-//            } else {
-//                for (ConstraintViolation<Admin> con : constraints) {
-//                    LOGGER.error("Admin couldn't be validated");
-//                    LOGGER.error("The " + con.getPropertyPath() + " is not valid!");
-//                }
-//            }
+            } else {
+                LOGGER.error("Admin couldn't be validated");
+                Set<Map.Entry<String, Set<String>>> entries = constraints.entrySet();
+                for (Map.Entry<String, Set<String>> entry : entries) {
+                    LOGGER.error("The " + entry.getKey() + " is not valid!");
+                }
             }
         }
+
     }
 
-    public void createStockType(){
+    public void createStockTypeTable(){
         DAO<StockType, String> stockTypeDAO = new MainDAO<>();
         List<StockType> stockTypeList = stockTypeDAO.selectAll(StockType.class);
 
@@ -130,8 +131,8 @@ public class WSystem {
     }
 
     public void initializeDB(){
-        createAdmin("Adminov", "Adminov", "admin", "Admin_123");
-        createStockType();
+        createAdminTable("Admin", "Adminov", "admin", "Admin_123");
+        createStockTypeTable();
     }
 
     public void addWarehouseToDatabase(Warehouse warehouse){

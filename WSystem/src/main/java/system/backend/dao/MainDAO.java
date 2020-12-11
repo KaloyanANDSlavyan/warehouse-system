@@ -138,7 +138,7 @@ public class MainDAO<T, V> implements DAO<T, V> {
         }
     }
 
-    public void updateCriteria(Class<T> c, String column, V newValue, V oldValue){
+    public void updateColumn(Class<T> c, String column, V newValue, V oldValue){
         CriteriaBuilder cb = manager.getCriteriaBuilder();
         CriteriaUpdate<T> update = cb.createCriteriaUpdate(c);
         Root<T> root = update.from(c);

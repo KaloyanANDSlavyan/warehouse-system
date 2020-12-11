@@ -1,9 +1,5 @@
 package system.backend.others;
 
-import system.backend.validators.indicators.ValidationIndicator;
-
-import javax.persistence.criteria.CriteriaBuilder;
-
 public class Indicator {
     private static Indicator indicator;
     private Class<?> validationIndicator;

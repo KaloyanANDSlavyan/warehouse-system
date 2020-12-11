@@ -75,7 +75,7 @@ public class ChangePassController implements Initializable {
 
                     if(cons.isEmpty()){
                         DAO<Owner, String> ownerDAO = new MainDAO<>();
-                        ownerDAO.updateCriteria(Owner.class, "password", newPass, oldPass);
+                        ownerDAO.updateColumn(Owner.class, "password", newPass, oldPass);
                         System.out.println("Password successfully changed.");
                     } else{
                         System.out.println("There are violations.");

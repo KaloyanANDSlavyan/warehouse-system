@@ -52,6 +52,7 @@ public class AdminLoginController {
         catch (IOException e) {
             e.printStackTrace();
             System.out.println("Couldn't load the stage.");
+            LOGGER.error("Couldn't load the stage.");
         }
 
         if (adminPanelRoot == null)
@@ -68,7 +69,7 @@ public class AdminLoginController {
     public void setOnAction(ActionEvent actionEvent) {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
-        AuthorizationService service = AuthorizationService.getInstance();
+        AuthorizationService<Admin> service = new AuthorizationService<>();
         boolean success = service.authorizeLogin(username, password, Admin.class);
         LOGGER.info("Successfully finished the authorization of the admin");
 

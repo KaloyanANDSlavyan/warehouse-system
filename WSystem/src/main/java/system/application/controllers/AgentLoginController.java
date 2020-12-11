@@ -8,7 +8,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import system.backend.profiles.Admin;
 import system.backend.profiles.Agent;
 import system.backend.services.AuthorizationService;
 
@@ -26,7 +25,7 @@ public class AgentLoginController {
     public void setOnAction(ActionEvent actionEvent) {
         String username = usernameField.getText().trim();
         String password = passwordField.getText();
-        AuthorizationService service = AuthorizationService.getInstance();
+        AuthorizationService<Agent> service = new AuthorizationService<>();
         boolean success = service.authorizeLogin(username, password, Agent.class);
         LOGGER.info("Successfully finished the authorization of the agent");
 
