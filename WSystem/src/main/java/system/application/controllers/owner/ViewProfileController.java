@@ -21,19 +21,22 @@ import system.backend.profiles.Owner;
 import system.backend.profiles.ProfileManager;
 
 import javax.validation.ConstraintViolation;
-import javax.xml.crypto.Data;
 import java.net.URL;
 import java.util.*;
 
 public class ViewProfileController extends AbstractController implements Initializable, Controller {
     @FXML
-    private VBox editVbox;  // Container for edit. Loads whenever edit button is pressed
+    private AnchorPane editPane;  // Container for edit. Loads whenever edit button is pressed
     @FXML
     private VBox profileVbox;   // Container for user info
     @FXML
     private AnchorPane anchorPane = null;   // Parent Container
     @FXML
     private Label firstNameLabel = null;
+    @FXML
+    private Hyperlink why1;
+    @FXML
+    private Hyperlink why2;
     @FXML
     private TextField firstNameField;
     @FXML
@@ -57,7 +60,9 @@ public class ViewProfileController extends AbstractController implements Initial
     @FXML
     private Hyperlink changePassword = null;
     @FXML
-    private VBox consVbox;  // Container which shows violations if there are
+    private VBox consVbox1;  // Container which shows violations if there are
+    @FXML
+    private VBox consVbox2;  // Container which shows violations if there are
     @FXML
     private Label violationsLabel;
 
@@ -91,12 +96,20 @@ public class ViewProfileController extends AbstractController implements Initial
         phoneLabel.setText(owner.getPhoneNumber());
 
         // Makes the size of the container dynamic
-        consVbox.setMinWidth(Region.USE_COMPUTED_SIZE);
-        consVbox.setPrefWidth(Region.USE_COMPUTED_SIZE);
-        consVbox.setMaxWidth(Region.USE_PREF_SIZE);
-        consVbox.setMinHeight(Region.USE_COMPUTED_SIZE);
-        consVbox.setPrefHeight(Region.USE_COMPUTED_SIZE);
-        consVbox.setMaxHeight(Region.USE_PREF_SIZE);
+        consVbox1.setMinWidth(Region.USE_COMPUTED_SIZE);
+        consVbox1.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        consVbox1.setMaxWidth(Region.USE_PREF_SIZE);
+        consVbox1.setMinHeight(Region.USE_COMPUTED_SIZE);
+        consVbox1.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        consVbox1.setMaxHeight(Region.USE_PREF_SIZE);
+
+        // Makes the size of the container dynamic
+        consVbox2.setMinWidth(Region.USE_COMPUTED_SIZE);
+        consVbox2.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        consVbox2.setMaxWidth(Region.USE_PREF_SIZE);
+        consVbox2.setMinHeight(Region.USE_COMPUTED_SIZE);
+        consVbox2.setPrefHeight(Region.USE_COMPUTED_SIZE);
+        consVbox2.setMaxHeight(Region.USE_PREF_SIZE);
     }
 
     @Override
@@ -104,8 +117,19 @@ public class ViewProfileController extends AbstractController implements Initial
         Label consLabel = new Label();
         consLabel.setText(message);
         consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 10px");
-        consVbox.getChildren().add(consLabel);
+        consVbox1.getChildren().add(consLabel);
         System.out.println(message);
+        why1.setVisible(true);
+    }
+
+    @Override
+    public void fillConsBox2(String message) { // Fills the container with  violation labels
+        Label consLabel = new Label();
+        consLabel.setText(message);
+        consLabel.setStyle("-fx-text-fill: red; -fx-font-size: 10px");
+        consVbox2.getChildren().add(consLabel);
+        System.out.println(message);
+        why2.setVisible(true);
     }
 
     public void setLoader(String fxmlFile){ // sets the parent container to a new FXML File
@@ -126,7 +150,7 @@ public class ViewProfileController extends AbstractController implements Initial
         emailField.setText(owner.getEmailAddress());
         phoneField.setText(owner.getPhoneNumber());
 
-        editVbox.setVisible(true);
+        editPane.setVisible(true);
         profileVbox.setVisible(false);
     }
 
@@ -136,7 +160,10 @@ public class ViewProfileController extends AbstractController implements Initial
     }
 
     public void handleDoneButton(ActionEvent event) {   // Updates user info
-        consVbox.getChildren().clear();
+        consVbox1.getChildren().clear();
+        consVbox2.getChildren().clear();
+        why1.setVisible(false);
+        why2.setVisible(false);
         violationsLabel.setVisible(false);
 
         String firstName = firstNameField.getText();
@@ -172,13 +199,13 @@ public class ViewProfileController extends AbstractController implements Initial
         cons = ownerProfileManager.updateProfileWithoutPass(owner, Owner.class, newData);
 
         if(cons.isEmpty()) {
-            System.out.println("Owner successfully updated!!!!!");
-            editVbox.setVisible(false);
+            System.out.println("Owner successfully updated!");
+            editPane.setVisible(false);
             profileVbox.setVisible(true);
         }
         else {
             violationsLabel.setVisible(true);
-            System.out.println("Imash greshka nqkude WE :@ @: ");
+
             ownerProfileManager.setProfileDataWithoutPass(owner, oldData);
             addConstraints(cons);
             showMessages();
@@ -221,49 +248,49 @@ public class ViewProfileController extends AbstractController implements Initial
         System.out.println("\n\n\nShow messages:");
         System.out.println("First Name Violations:");
 
-        for (String message : firstname_con) {
+        for (String message : firstname_con) {  // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox1(message);  // passes the message to the method which will print violations
                 System.out.println(message);
             }
         }
         System.out.println("\n");
         System.out.println("Last Name Violations:");
-        for (String message : lastname_con) {
+        for (String message : lastname_con) {   // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox1(message);  // passes the message to the method which will print violations
                 System.out.println(message);
             }
         }
         System.out.println("\n");
         System.out.println("Username Violations:");
-        for (String message : username_con) {
+        for (String message : username_con) {   // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox1(message);  // passes the message to the method which will print violations
                 System.out.println(message);
             }
         }
         System.out.println("\n");
         System.out.println("Password Violations:");
-        for (String message : pass_con) {
+        for (String message : pass_con) {   // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox2(message);  // passes the message to the method which will print violations
                 System.out.println(message);
             }
         }
         System.out.println("\n");
         System.out.println("Email Violations:");
-        for (String message : email_con) {
+        for (String message : email_con) {  // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox2(message);  // passes the message to the method which will print violations
                 System.out.println(message);
             }
         }
         System.out.println("\n");
         System.out.println("Phone Violations:");
-        for (String message : phone_con) {
+        for (String message : phone_con) {  // traverses through the List
             if (!message.isEmpty()) {
-                fillConsBox1(message);
+                fillConsBox2(message);
                 System.out.println(message);
             }
         }
@@ -271,9 +298,12 @@ public class ViewProfileController extends AbstractController implements Initial
     }
 
     public void handleCancelButton(ActionEvent event) {
-        consVbox.getChildren().clear();
+        consVbox1.getChildren().clear();
+        consVbox2.getChildren().clear();
         violationsLabel.setVisible(false);
-        editVbox.setVisible(false);
+        why1.setVisible(false);
+        why2.setVisible(false);
+        editPane.setVisible(false);
         profileVbox.setVisible(true);
     }
 
@@ -297,11 +327,19 @@ public class ViewProfileController extends AbstractController implements Initial
         return phoneField;
     }
 
-    public void showConsVbox(MouseEvent mouseEvent) {
-        consVbox.setVisible(true);
+    public void showConsBox1(MouseEvent mouseEvent) {
+        consVbox1.setVisible(true);
     }
 
-    public void hideConsVbox(MouseEvent mouseEvent) {
-        consVbox.setVisible(false);
+    public void hideConsBox1(MouseEvent mouseEvent) {
+        consVbox1.setVisible(false);
+    }
+
+    public void showConsBox2(MouseEvent mouseEvent) {
+        consVbox2.setVisible(true);
+    }
+
+    public void hideConsBox2(MouseEvent mouseEvent) {
+        consVbox2.setVisible(false);
     }
 }

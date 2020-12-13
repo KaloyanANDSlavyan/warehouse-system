@@ -77,9 +77,9 @@ public class UserController extends AbstractController implements Initializable 
         this.wh = wh;
 
         imageView.setImage(image);
-        firstNameLabel.setText("Warehouse " + Long.toString(wh.getID()));
-        lastNameLabel.setText(wh.getCategory());
-        phoneLabel.setVisible(false);
+        firstNameLabel.setText("Warehouse " + Long.toString(wh.getID()));   // Sets id for warehouse
+        lastNameLabel.setText(wh.getCategory());    // Sets category of warehouse
+        phoneLabel.setVisible(false);   // hides phoneLabel which is used only for owners and agents
     }
 
     public void handleDeleteButton(ActionEvent event) {
@@ -90,14 +90,14 @@ public class UserController extends AbstractController implements Initializable 
         DAO<Owner, String> ownerDAO = new MainDAO<>();
         DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
 
-        if(this.owner != null) {
-            ownerDAO.deleteByID(Owner.class, this.owner.getID());
+        if(this.owner != null) {    // checks if owner is not null
+            ownerDAO.deleteByID(Owner.class, this.owner.getID());   // deletes from database
             anchorPane.setVisible(false);
         }
-        else if(this.agent != null){
+        else if(this.agent != null){    // checks if agent is not null
             agentDAO.deleteByID(Agent.class, this.agent.getID());
-            anchorPane.setVisible(false);
-        } else{
+            anchorPane.setVisible(false);   // deletes from database
+        } else{     // deletes warehouse
             wh.getOwner().getWarehouses().remove(wh);
             warehouseDAO.deleteByID(Warehouse.class, this.wh.getID());
             anchorPane.setVisible(false);

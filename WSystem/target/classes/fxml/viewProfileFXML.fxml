@@ -134,82 +134,31 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox fx:id="editVbox" alignment="CENTER" layoutX="105.0" layoutY="110.0" prefHeight="329.0" prefWidth="441.0" styleClass="firstPane" stylesheets="@../styling/registrationScreenCSS.css" visible="false">
+            <AnchorPane fx:id="editPane" layoutX="105.0" layoutY="110.0" prefHeight="329.0" prefWidth="441.0" styleClass="firstPane" stylesheets="@../styling/registrationScreenCSS.css" visible="false">
                <children>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <TextField fx:id="firstNameField" promptText="First name" styleClass="usernameField" stylesheets="@../styling/registrationScreenCSS.css" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <TextField fx:id="lastNameField" promptText="Last name" styleClass="usernameField" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <TextField fx:id="usernameField" promptText="Username" styleClass="usernameField">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <TextField fx:id="emailField" promptText="Email" styleClass="usernameField" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <TextField fx:id="phoneField" promptText="Phone number" styleClass="usernameField" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <HBox alignment="BASELINE_CENTER" prefHeight="20.0" prefWidth="380.0">
-                     <children>
-                        <Label fx:id="violationsLabel" onMouseEntered="#showConsVbox" onMouseExited="#hideConsVbox" text="Couldn't update profile. See why" textFill="RED" underline="true" visible="false">
-                           <HBox.margin>
-                              <Insets bottom="15.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="18.0" prefWidth="380.0">
-                     <children>
-                        <Button fx:id="doneButton" mnemonicParsing="false" onAction="#handleDoneButton" prefHeight="25.0" prefWidth="48.0" style="-fx-background-color: #25274D; -fx-text-fill: white;" styleClass="registerButton" text="Done">
-                           <HBox.margin>
-                              <Insets right="50.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #25274D; -fx-text-fill: white;" styleClass="registerButton" text="Cancel">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </HBox>
+                  <TextField fx:id="firstNameField" layoutX="144.0" layoutY="20.0" promptText="First name" styleClass="usernameField" stylesheets="@../styling/registrationScreenCSS.css" />
+                  <TextField fx:id="lastNameField" layoutX="144.0" layoutY="65.0" promptText="Last name" styleClass="usernameField" />
+                  <TextField fx:id="usernameField" layoutX="144.0" layoutY="110.0" promptText="Username" styleClass="usernameField" />
+                  <TextField fx:id="emailField" layoutX="144.0" layoutY="155.0" promptText="Email" styleClass="usernameField" />
+                  <TextField fx:id="phoneField" layoutX="144.0" layoutY="200.0" promptText="Phone number" styleClass="usernameField" />
+                  <Label fx:id="violationsLabel" layoutX="156.0" layoutY="248.0" text="Couldn't update profile. " textFill="RED" underline="true" visible="false" />
+                  <Button fx:id="doneButton" layoutX="120.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleDoneButton" prefHeight="25.0" prefWidth="48.0" style="-fx-background-color: #25274D; -fx-text-fill: white;" styleClass="registerButton" text="Done" />
+                  <Button fx:id="cancelButton" layoutX="271.0" layoutY="276.0" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: #25274D; -fx-text-fill: white;" styleClass="registerButton" text="Cancel" />
+                  <Hyperlink fx:id="why1" layoutX="324.0" layoutY="46.0" onMouseEntered="#showConsBox1" onMouseExited="#hideConsBox1" text="Why?" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Agency FB" size="20.0" />
+                     </font>
+                  </Hyperlink>
+                  <Hyperlink fx:id="why2" layoutX="324.0" layoutY="181.0" onMouseEntered="#showConsBox2" onMouseExited="#hideConsBox2" text="Why?" textFill="RED" visible="false">
+                     <font>
+                        <Font name="Agency FB" size="20.0" />
+                     </font>
+                  </Hyperlink>
                </children>
-            </VBox>
+            </AnchorPane>
          </children>
       </AnchorPane>
-      <VBox fx:id="consVbox" layoutX="471.0" layoutY="417.0" prefHeight="187.0" prefWidth="207.0" style="-fx-background-color: #25274D; -fx-border-color: #14152B;" visible="false" />
+      <VBox fx:id="consVbox2" layoutX="527.0" layoutY="354.0" prefHeight="187.0" prefWidth="207.0" style="-fx-background-color: #25274D; -fx-border-color: #14152B;" visible="false" />
+      <VBox fx:id="consVbox1" layoutX="527.0" layoutY="218.0" prefHeight="187.0" prefWidth="207.0" style="-fx-background-color: #25274D; -fx-border-color: #14152B;" visible="false" />
    </children>
 </AnchorPane>
