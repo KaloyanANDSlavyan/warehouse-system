@@ -65,10 +65,6 @@ public class CreateWarehouseController extends OwnerPanelController {
 
     private Owner owner;
 
-    private List<String> size_con = new ArrayList<>();
-    private List<String> category_con = new ArrayList<>();
-    private List<String> temperature_con = new ArrayList<>();
-
     private String[] keys = {"size", "temperature"};
 
     private Map<String, Map<String, String>> data = new HashMap<>();
@@ -76,11 +72,6 @@ public class CreateWarehouseController extends OwnerPanelController {
     private Map<String, Set<String>> cons = new LinkedHashMap<>();
 
     private MessageService messageService = MessageService.getInstance();
-
-    private double oldSize;
-    private double oldtemperature;
-    private String oldCategory;
-    private Set<StockType> oldStockTypes;
 
     DataRetriever dataRetriever = DataRetriever.getInstance();
     ValidationService validationService = ValidationService.getInstance();
@@ -147,33 +138,6 @@ public class CreateWarehouseController extends OwnerPanelController {
         Hbox.setVisible(true);
     }
 
-    public void addConstraints(Set<ConstraintViolation<Object>> cons){
-        for (ConstraintViolation<Object> con : cons) {
-            if (con.getPropertyPath().toString().equals("size"))
-                size_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("temperature"))
-                temperature_con.add(con.getMessage());
-        }
-    }
-
-    public void showMessages(){
-        System.out.println("\n\n\nShow messages:");
-        System.out.println("Size Violations:");
-
-        for (String message : size_con) {
-            if (!message.isEmpty()) {
-                fillConsBox1(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Temperature Violations:");
-        for (String message : temperature_con) {
-            if (!message.isEmpty()) {
-                fillConsBox1(message);
-            }
-        }
-    }
-
     public void createButtonAction(ActionEvent event) {
         System.out.println("Create Button Clicked.");
         consVbox.getChildren().clear();
@@ -185,11 +149,15 @@ public class CreateWarehouseController extends OwnerPanelController {
 
         dataRetriever.getWarehouseDataFromController(this, data);
 
-        if (!validationService.allDataFilled(data.get("data")))
+        if (!validationService.allDataFilled(data.get("data"))) {
             System.out.println("Please fill all of the required data!");
+            messageService.fillDataMessage(this, data.get("data"));
+        }
         else {
-            if (!validationService.allDataFilled(data.get("stocktypes")))
+            if (!validationService.allDataFilled(data.get("stocktypes"))) {
                 System.out.println("Please select stock types!");
+                messageService.noStockTypesMessage(this);
+            }
             else {
                 cons = owner.createWarehouse(data);
 
@@ -229,55 +197,34 @@ public class CreateWarehouseController extends OwnerPanelController {
 
     public void doneButtonAction(ActionEvent event) {   // HANDLES EDIT WAREHOUSE
         consVbox.getChildren().clear();
-        size_con.clear();
-        temperature_con.clear();
 
-        oldSize = wh.getSize();
-        oldtemperature = wh.getTemperature();
-        oldCategory = wh.getCategory();
-        oldStockTypes = wh.getStockTypes();
+        oldData.clear();
+        data.clear();
+        cons.clear();
 
-        String category = typeBox.getSelectionModel().getSelectedItem();
-        System.out.println("Category: " + category);
-        stockType = stockTypeView.getSelectionModel().getSelectedItems();  // Selected items of ListView
-        for (String o : stockType) {
-            System.out.println("o = " + o);
-        }
-        double size;
-        double temperature;
+        owner.getWarehouseData(wh, oldData);
+        dataRetriever.getWarehouseDataFromController(this, data);
 
-        if (sizeField.getText().isEmpty() || temperatureField.getText().isEmpty())
+        if (!validationService.allDataFilled(data.get("data"))) {
             System.out.println("Please fill all of the required data!");
+            messageService.fillDataMessage(this, data.get("data"));
+        }
         else {
-            if (!stockType.isEmpty()) {
-                Set<StockType> stockTypes = new HashSet<>();
-                for (String s : stockType) {
-                    stockTypes.add(wSystem.findStockTypeBy1Value(s));
-                    wh.setStockTypes(stockTypes);
-                }
+            if (!validationService.allDataFilled(data.get("stocktypes"))) {
+                System.out.println("Please select stock types!");
+                messageService.noStockTypesMessage(this);
             }
-            size = Double.parseDouble(sizeField.getText());
-            temperature = Double.parseDouble(temperatureField.getText());
+            else{
+                cons = owner.updateWarehouse(wh, data);
 
-            wh.setSize(size);
-            wh.setTemperature(temperature);
-            wh.setCategory(category);
-
-            DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
-            Set<ConstraintViolation<Object>> cons = validationService.oldValidate(wh);
-
-            if (cons.isEmpty()) {
-                warehouseDAO.update(wh);
-                System.out.println("Warehouse successfully updated!");
-                closeStage(event);
-            } else {
-                wh.setCategory(oldCategory);
-                wh.setSize(oldSize);
-                wh.setStockTypes(oldStockTypes);
-                wh.setTemperature(oldtemperature);
-                System.out.println("EI kulvach!!!!!!");
-                addConstraints(cons);
-                showMessages();
+                if (!cons.isEmpty()) {
+                    owner.setWarehouseData(wh, oldData);
+                    System.out.println("EI kulvach!!!!!!");
+                    messageService.showMessages(this, cons, keys);
+                } else {
+                    System.out.println("Warehouse successfully updated!");
+                    closeStage(event);
+                }
             }
         }
         try {

@@ -4,6 +4,7 @@ import system.application.controllers.Controller;
 import system.application.controllers.admin.EditUserInfoController;
 import system.application.controllers.admin.RegisterAgentController;
 import system.application.controllers.admin.RegisterOwnerController;
+import system.application.controllers.owner.CreateWarehouseController;
 
 import java.util.*;
 
@@ -16,16 +17,27 @@ public class MessageService {
         return messageService;
     }
 
+    // old fill data function
     public void fillDataMessage(Controller controller, Map<String, String> data) {
-        controller.getSuccessLabel().setVisible(false);
-        controller.getViolationsLabel().setVisible(true);
         String message = "Please fill all of the required data!";
 
-        if (data.get("firstname").equals("") || data.get("lastname").equals("") || data.get("username").equals(""))
+        if(controller.getClass() == CreateWarehouseController.class)
             controller.fillConsBox1(message);
-        if (data.get("password").equals("") || data.get("confirmPassword").equals("")
-                || data.get("phone").equals("") || data.get("email").equals(""))
-            controller.fillConsBox2(message);
+        else {
+            controller.getSuccessLabel().setVisible(false);
+            controller.getViolationsLabel().setVisible(true);
+
+            if (data.get("firstname").equals("") || data.get("lastname").equals("") || data.get("username").equals(""))
+                controller.fillConsBox1(message);
+            if (data.get("password").equals("") || data.get("confirmPassword").equals("")
+                    || data.get("phone").equals("") || data.get("email").equals(""))
+                controller.fillConsBox2(message);
+        }
+    }
+
+    public void noStockTypesMessage(Controller controller){
+        String message = "Please select stock types!";
+        controller.fillConsBox1(message);
     }
 
     public void passwordMatchMessage(Controller controller) {

@@ -12,7 +12,6 @@ import system.backend.services.ValidationService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.Scanner;
 
 public class UniqueValidator implements ConstraintValidator<MyUnique, String> {
 

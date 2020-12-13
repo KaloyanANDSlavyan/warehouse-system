@@ -3,6 +3,8 @@ package system.backend.profiles;
 import system.backend.WSystem;
 import system.backend.constraints.MyUnique;
 //import system.backend.others.StockType;
+import system.backend.dao.DAO;
+import system.backend.dao.MainDAO;
 import system.backend.others.StockType;
 import system.backend.others.Warehouse;
 import system.backend.services.ValidationService;
@@ -88,6 +90,62 @@ public class Owner extends AbstractMainProfile implements SecondaryProfile {
         }
 
         return cons;
+    }
+
+    public Map<String, Set<String>> updateWarehouse(Warehouse warehouse, Map<String, Map<String, String>> data){
+        warehouse.setSize(Double.parseDouble(data.get("data").get("size")));
+        warehouse.setTemperature(Double.parseDouble(data.get("data").get("temperature")));
+        warehouse.setCategory(data.get("data").get("category"));
+
+        WSystem wSystem = WSystem.getInstance();
+        Set<Map.Entry<String, String>> stocks = data.get("stocktypes").entrySet();
+
+        Set<StockType> stockTypes = new HashSet<>();
+
+        for (Map.Entry<String, String> stock : stocks)
+            stockTypes.add(wSystem.findStockTypeBy1Value(stock.getValue()));
+
+        warehouse.setStockTypes(stockTypes);
+
+        ValidationService validationService = ValidationService.getInstance();
+
+        Map<String, Set<String>> constraints = validationService.validate(warehouse);
+
+        if(constraints.isEmpty()) {
+            DAO<Warehouse, String> warehouseDAO = new MainDAO<>();
+            warehouseDAO.update(warehouse);
+        }
+        return constraints;
+    }
+
+    public void setWarehouseData(Warehouse warehouse, Map<String, Map<String, String>> data){
+        warehouse.setSize(Double.parseDouble(data.get("data").get("size")));
+        warehouse.setTemperature(Double.parseDouble(data.get("data").get("temperature")));
+        warehouse.setCategory(data.get("data").get("category"));
+
+        WSystem wSystem = WSystem.getInstance();
+        Set<Map.Entry<String, String>> stocks = data.get("stocktypes").entrySet();
+
+        Set<StockType> stockTypes = new HashSet<>();
+
+        for (Map.Entry<String, String> stock : stocks)
+            stockTypes.add(wSystem.findStockTypeBy1Value(stock.getValue()));
+
+        warehouse.setStockTypes(stockTypes);
+    }
+
+    public void getWarehouseData(Warehouse warehouse, Map<String, Map<String, String>> data){
+        data.put("data", new HashMap<>());
+        data.put("stocktypes", new HashMap<>());
+
+        data.get("data").put("size", String.valueOf(warehouse.getSize()));
+        data.get("data").put("category", warehouse.getCategory());
+        data.get("data").put("temperature", String.valueOf(warehouse.getTemperature()));
+
+        int i = 0;
+        for (StockType stockType : warehouse.getStockTypes()) {
+            data.get("stocktypes").put("stocktype " + i, stockType.getType());
+        }
     }
 
     public void setEmailAddress(String emailAddress) {
