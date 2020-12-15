@@ -97,7 +97,7 @@ public class ProfileManager<T> {
         return constraints;
     }
     public <T extends MainProfile & SecondaryProfile>
-    Set<ConstraintViolation<Object>> updateProfileWithoutPass(T object, Class<T> c, Map<String, String> data){
+    Map<String, Set<String>> updateProfileWithoutPass(T object, Class<T> c, Map<String, String> data){
         setProfileDataWithoutPass(object, data);
 
         ValidationService validationService = ValidationService.getInstance();
@@ -105,7 +105,7 @@ public class ProfileManager<T> {
         indicator.setValidationIndicator(c);
         validationService.setIndicator(indicator);
         validationService.setIgnoreThisID(object.getID());
-        Set<ConstraintViolation<Object>> constraints = validationService.oldValidate(object);
+        Map<String, Set<String>> constraints = validationService.validate(object);
 
         if(constraints.isEmpty()) {
             if (object.getClass() == Owner.class) {

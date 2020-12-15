@@ -71,14 +71,10 @@ public class ViewProfileController extends AbstractController implements Initial
 
     private Map<String, String> newData = new HashMap<>();
     private Map<String, String> oldData = new HashMap<>();
-    private Set<ConstraintViolation<Object>> cons = new LinkedHashSet<>();
+    private Map<String, Set<String>> cons = new LinkedHashMap<>();
 
-    private List<String> firstname_con = new ArrayList<>();
-    private List<String> lastname_con = new ArrayList<>();
-    private List<String> username_con = new ArrayList<>();
-    private List<String> pass_con = new ArrayList<>();
-    private List<String> email_con = new ArrayList<>();
-    private List<String> phone_con = new ArrayList<>();
+    private String[] keys = {"firstname", "lastname", "username",
+            "password", "emailAddress", "phoneNumber"};
 
     ProfileManager<Owner> ownerProfileManager = new ProfileManager<>();
     DataRetriever dataRetriever = DataRetriever.getInstance();
@@ -166,29 +162,11 @@ public class ViewProfileController extends AbstractController implements Initial
         why2.setVisible(false);
         violationsLabel.setVisible(false);
 
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        String username = usernameField.getText();
-        String email = emailField.getText();
-        String phone = phoneField.getText();
-
-//        firstNameLabel.setText(firstNameField.getText());
-//        lastNameLabel.setText(lastNameField.getText());
-//        usernameLabel.setText(usernameField.getText());
-//        emailLabel.setText(emailField.getText());
-//        phoneLabel.setText(phoneField.getText());
-
         firstNameLabel.setText(owner.getFirstname());
         lastNameLabel.setText(owner.getLastname());
         usernameLabel.setText(owner.getUsername());
         emailLabel.setText(owner.getEmailAddress());
         phoneLabel.setText(owner.getPhoneNumber());
-
-        firstname_con.clear();
-        lastname_con.clear();
-        username_con.clear();
-        email_con.clear();
-        phone_con.clear();
 
         cons.clear();
         oldData.clear();
@@ -205,96 +183,15 @@ public class ViewProfileController extends AbstractController implements Initial
         }
         else {
             violationsLabel.setVisible(true);
-
             ownerProfileManager.setProfileDataWithoutPass(owner, oldData);
-            addConstraints(cons);
-            showMessages();
+            messageService.showMessages(this, cons, keys);
         }
-        //ownerDataHolder.setOwner(owner);
-        System.out.println("owner phone:" + owner.getPhoneNumber());
 
         firstNameLabel.setText(owner.getFirstname());
         lastNameLabel.setText(owner.getLastname());
         usernameLabel.setText(owner.getUsername());
         emailLabel.setText(owner.getEmailAddress());
         phoneLabel.setText(owner.getPhoneNumber());
-    }
-
-    public void addConstraints(Set<ConstraintViolation<Object>> cons){
-        for (ConstraintViolation<Object> con : cons) {
-            if (con.getPropertyPath().toString().equals("firstname"))
-                firstname_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("lastname"))
-                lastname_con.add(con.getMessage());
-            else if (con.getPropertyPath().toString().equals("username")) {
-                if (con.getMessage().equals(" is already taken")) {
-                    username_con.add("Username" + con.getMessage());
-                } else username_con.add(con.getMessage());
-            }
-            else if (con.getPropertyPath().toString().equals("emailAddress")) {
-                if (con.getMessage().equals(" is already taken"))
-                    email_con.add("Email address" + con.getMessage());
-                else email_con.add(con.getMessage());
-            }
-            else if (con.getPropertyPath().toString().equals("phoneNumber")) {
-                if (con.getMessage().equals(" is already taken"))
-                    phone_con.add("Phone number" + con.getMessage());
-                else phone_con.add(con.getMessage());
-            }
-        }
-    }
-
-    public void showMessages(){
-        System.out.println("\n\n\nShow messages:");
-        System.out.println("First Name Violations:");
-
-        for (String message : firstname_con) {  // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox1(message);  // passes the message to the method which will print violations
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Last Name Violations:");
-        for (String message : lastname_con) {   // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox1(message);  // passes the message to the method which will print violations
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Username Violations:");
-        for (String message : username_con) {   // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox1(message);  // passes the message to the method which will print violations
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Password Violations:");
-        for (String message : pass_con) {   // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox2(message);  // passes the message to the method which will print violations
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Email Violations:");
-        for (String message : email_con) {  // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox2(message);  // passes the message to the method which will print violations
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
-        System.out.println("Phone Violations:");
-        for (String message : phone_con) {  // traverses through the List
-            if (!message.isEmpty()) {
-                fillConsBox2(message);
-                System.out.println(message);
-            }
-        }
-        System.out.println("\n");
     }
 
     public void handleCancelButton(ActionEvent event) {

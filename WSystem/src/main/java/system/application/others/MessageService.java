@@ -5,6 +5,7 @@ import system.application.controllers.admin.EditUserInfoController;
 import system.application.controllers.admin.RegisterAgentController;
 import system.application.controllers.admin.RegisterOwnerController;
 import system.application.controllers.owner.CreateWarehouseController;
+import system.application.controllers.owner.ViewProfileController;
 
 import java.util.*;
 
@@ -63,7 +64,8 @@ public class MessageService {
 
         if(controller.getClass() == RegisterAgentController.class
                 || controller.getClass() == RegisterOwnerController.class
-                || controller.getClass() == EditUserInfoController.class)
+                || controller.getClass() == EditUserInfoController.class
+                || controller.getClass() == ViewProfileController.class)
             addNewLines(entries, keys);
 
         for (int i = 0; i < keys.length; i++) {
