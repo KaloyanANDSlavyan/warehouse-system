@@ -52,7 +52,6 @@ ViewOwnersController extends UserController implements Initializable {
                     column = 0;
                     row++;
                 }
-
                 grid.add(anchorPane, column++, row);
                 GridPane.setMargin(anchorPane, new Insets(10));
                 grid.setMinWidth(Region.USE_COMPUTED_SIZE);
@@ -62,12 +61,10 @@ ViewOwnersController extends UserController implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-
             }
         }catch (IOException e) {
                 e.printStackTrace();
             }
-
     }
 
     public void setLoader(String fxmlFile){

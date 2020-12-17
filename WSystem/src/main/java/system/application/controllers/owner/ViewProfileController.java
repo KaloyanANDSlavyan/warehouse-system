@@ -162,11 +162,6 @@ public class ViewProfileController extends AbstractController implements Initial
         why2.setVisible(false);
         violationsLabel.setVisible(false);
 
-        firstNameLabel.setText(owner.getFirstname());
-        lastNameLabel.setText(owner.getLastname());
-        usernameLabel.setText(owner.getUsername());
-        emailLabel.setText(owner.getEmailAddress());
-        phoneLabel.setText(owner.getPhoneNumber());
 
         cons.clear();
         oldData.clear();

@@ -124,7 +124,6 @@ public class EditUserInfoController extends UserController {
     }
 
     public void handleDoneButton(ActionEvent event) {
-
         cons.clear();
         oldData.clear();
         newData.clear();
@@ -169,7 +168,6 @@ public class EditUserInfoController extends UserController {
             static_lastName.setText(agent.getLastname());
             static_phoneNumber.setText(agent.getPhoneNumber());
         }
-
     }
 
     public void handleExitButton(ActionEvent event) {

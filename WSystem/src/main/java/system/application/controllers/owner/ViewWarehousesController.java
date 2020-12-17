@@ -60,11 +60,9 @@ public class ViewWarehousesController implements Initializable {
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMinHeight(Region.USE_COMPUTED_SIZE);
                 grid.setMaxHeight(Region.USE_PREF_SIZE);
-
             }
         }catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

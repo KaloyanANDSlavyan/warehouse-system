@@ -98,7 +98,6 @@ public class RegisterOwnerController extends AdminPanelController implements Ini
     }
 
     public void registerButtonAction(ActionEvent actionEvent) {
-
         consVbox1.getChildren().clear();
         consVbox2.getChildren().clear();
         why1.setVisible(false);

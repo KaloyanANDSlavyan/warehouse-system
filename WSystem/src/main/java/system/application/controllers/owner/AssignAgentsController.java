@@ -52,8 +52,6 @@ public class AssignAgentsController implements Initializable {
         }
         else
             System.out.println("The system doesn't have agent profiles!");
-
-
     }
 
     public void  addAgentsToListView(){ // adds agents to agentsView
@@ -99,8 +97,5 @@ public class AssignAgentsController implements Initializable {
                 System.out.println("Agent = " + o);
         }else
             violationsLabel.setVisible(true);
-
     }
-
-
 }

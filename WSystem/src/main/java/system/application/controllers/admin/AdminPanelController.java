@@ -50,7 +50,6 @@ public class AdminPanelController extends AbstractController {
             profilesButton_static.setVisible(true);
         else
             profilesButton_static.setVisible(false);
-
     }
 
     public AnchorPane getAnchorPane() {

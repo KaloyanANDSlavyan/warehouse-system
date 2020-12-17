@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class UserController extends AbstractController implements Initializable {
+public class UserController extends AbstractController{
     @FXML
     public Label firstNameLabel;
     public static Label static_firstName;
@@ -46,17 +46,11 @@ public class UserController extends AbstractController implements Initializable 
     @FXML
     private ImageView imageView = new ImageView();
     private Image image = new Image("/styling/images/warehouseIMG.png");
-    protected static AnchorPane anchorPane_static = new AnchorPane();
     private OwnerDataHolder ownerDataHolder = OwnerDataHolder.getInstance();
 
     private Owner owner;
     private Agent agent;
     private Warehouse wh;
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-        anchorPane_static = anchorPane;
-    }
 
     public void setOwner(Owner owner){
         this.owner = owner;
@@ -102,8 +96,8 @@ public class UserController extends AbstractController implements Initializable 
             warehouseDAO.deleteByID(Warehouse.class, this.wh.getID());
             anchorPane.setVisible(false);
         }
-
     }
+
     public void loadEditUserInfo(String path){
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
@@ -161,8 +155,8 @@ public class UserController extends AbstractController implements Initializable 
         static_firstName = firstNameLabel;
         static_lastName = lastNameLabel;
         static_phoneNumber = phoneLabel;
-
     }
+
     public void transferMessage(String message){    // sets the warehouse category label
         System.out.println("Transfer Message: " + message);
         static_lastName.setText(message);   // warehouse category

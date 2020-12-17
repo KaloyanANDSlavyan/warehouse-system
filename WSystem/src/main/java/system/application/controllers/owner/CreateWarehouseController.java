@@ -107,7 +107,6 @@ public class CreateWarehouseController extends OwnerPanelController {
             stockTypeView.getSelectionModel().select(st.getType());
         }
         temperatureField.setText(Double.toString(wh.getTemperature()));
-
     }
 
     public void addToListView(){    // Method which adds items to the ListView for given index of ComboBox
@@ -182,15 +181,12 @@ public class CreateWarehouseController extends OwnerPanelController {
     public void handleComboBox(ActionEvent event) {
         addToListView();
     }
-
     public void showConsPane(MouseEvent mouseEvent) {
         consVbox.setVisible(true);
     }
-
     public void hideConsPane(MouseEvent mouseEvent) {
         consVbox.setVisible(false);
     }
-
     public void handleExitButton(ActionEvent event) {
         closeStage(event);
     }
@@ -219,7 +215,6 @@ public class CreateWarehouseController extends OwnerPanelController {
 
                 if (!cons.isEmpty()) {
                     owner.setWarehouseData(wh, oldData);
-                    System.out.println("EI kulvach!!!!!!");
                     messageService.showMessages(this, cons, keys);
                 } else {
                     System.out.println("Warehouse successfully updated!");
@@ -236,7 +231,6 @@ public class CreateWarehouseController extends OwnerPanelController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public ComboBox<String> getTypeBox() {

@@ -55,7 +55,6 @@ public class ProfilesController {
             System.out.println(owner.getEmailAddress());
             System.out.println(owner.getPhoneNumber());
         }
-
     }
 
     public void handleViewAgents(ActionEvent event) {
